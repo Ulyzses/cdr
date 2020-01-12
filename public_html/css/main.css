@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+:root {
+  --up-maroon: #7b1113;
+  --up-maroon-1: #9b1518;
+  --up-maroon-5: #e85c5f;
+  --up-maroon-9: #fadedf;
+  --up-forest-green: #014421;
+  --light-up-forest-green: #25fb8b;
+
+  --content-bg-grey: #f6f8fA;
+  --lighter-grey: #eCeef0;
+  --light-grey: #e2e4e8;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: var(--content-bg-grey);
+}
