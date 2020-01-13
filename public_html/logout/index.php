@@ -2,6 +2,11 @@
 
 session_start();
 
+if ( !(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) ) {
+  header("Location: /cdr/public_html/login");
+  exit();
+}
+
 // Unset all of the session variables.
 $_SESSION = array();
 

@@ -38,7 +38,7 @@
 
           <!-- Classes for teachers only -->
           <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
-            <a href="#" class="dropdown-item">My Class</a>
+            <a href="#" class="dropdown-item">My Classes</a>
           <?php endif; ?>
 
           <!-- Classes for students only -->
@@ -52,7 +52,7 @@
           <a href="../about" class="dropdown-item">About</a>
           <a href="#" class="dropdown-item">Help Center</a>
           <div class="dropdown-divider"></div>
-          <a href="/cdr/public_html/logout" class="dropdown-item" id="logout">Log Out</a>
+          <a href="#" class="dropdown-item" id="logout">Log Out</a>
         </div>
       </li>
     </ul>
@@ -81,13 +81,21 @@
         <li class="navbar-item"><a href="#" class="nav-link">My Subjects</a></li>
       <?php endif; ?>
       
-          <div class="dropdown-divider"></div>
+      <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">User Settings</a></li>
-          <div class="dropdown-divider"></div>
+      <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">About</a></li>
       <li class="navbar-item"><a href="#" class="nav-link">Help Center</a></li>
-          <div class="dropdown-divider"></div>
-      <li class="navbar-item"><a href="/cdr/public_html/logout" class="nav-link">Log Out</a></li>
+      <div class="dropdown-divider"></div>
+      <li class="navbar-item"><a href="#" class="nav-link" id="logout">Log Out</a></li>
     </ul>
   </div>
 </nav>
+
+<script>
+  $("#logout").click(e => {
+    if ( confirm("Do you wish to log out?") ) {
+      location.replace("/cdr/public_html/logout");
+    }
+  });
+</script>
