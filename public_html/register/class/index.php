@@ -17,6 +17,12 @@ if ( isset($_POST['submit']) ) {
   $_SESSION['reg']['room'] = trim($_POST['room']);
 
   $_SESSION['reg']['teacher'] = ( $_SESSION['type'] == 0 ) ? trim($_POST['teacher']) : $_SESSION['user_code'];
+  
+  // Check if teacher code is valid 
+  if ( strlen($_SESSION['reg']['teacher']) != 8 ) {
+    $error = "Invalid user code";
+    goto end;
+  }
 
   // Check if teacher code exists and if it's a teacher
   $query = "SELECT `hashed`.`user_type` FROM `users` INNER JOIN `hashed` ON `hashed`.`user_id` = `users`.`user_id` WHERE `users`.`user_code` = '{$_SESSION['reg']['teacher']}'";
@@ -26,23 +32,38 @@ if ( isset($_POST['submit']) ) {
   if ( $result ) {
     if ( mysqli_num_rows($result) == 1 ) {
       $userType = mysqli_fetch_assoc($result)['user_type'];
+      mysqli_free_result($result);
 
       if ( $userType != 1 ) {
         $error = "User does not have a teacher profile";
+        goto end;
       }
 
-      mysqli_free_result($result);
     } else {
+      mysqli_free_result($result);
       $error = "User code does not exist";
+      goto end;
     }
   } else {
     die(mysqli_error($conn));
   }
 
-  // Check if teacher code is valid 
-  if ( strlen($_SESSION['reg']['teacher']) != 8 ) {
-    $error = "Invalid user code";
+  // Check if class already exists
+  $query = "SELECT `class_code` FROM `classes` WHERE `class_subject` = '{$_SESSION['reg']['subject']}' AND `class_teacher` = '{$_SESSION['reg']['teacher']}' AND `class_section` = '{$_SESSION['reg']['section']}'";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( $result ) {
+    if ( mysqli_num_rows($result) == 1 ) {
+      $classCode = mysqli_fetch_assoc($result)['class_code'];
+      mysqli_free_result($result);
+      $error = "Subject already exists with class code $classCode";
+    }
+  } else {
+    die(mysqli_error($conn));
   }
+
+  end:
 
   // No errors
   if ( !isset($error) ) {
