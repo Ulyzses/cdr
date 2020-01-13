@@ -18,7 +18,7 @@
 
 .end {
   min-width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 
   background-image: url("https://live.staticflickr.com/3400/3282846730_d97150d65e_k.jpg");
   background-color: black;

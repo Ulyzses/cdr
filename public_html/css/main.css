@@ -19,11 +19,10 @@
   --light-grey: #e2e4e8;
 }
 
-html {
-  height: 100%;
+body {
+  background-color: var(--content-bg-grey);
 }
 
-body {
-  height: 100%;
-  background-color: var(--content-bg-grey);
+i {
+  font-size: 1rem;
 }
