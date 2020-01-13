@@ -11,7 +11,7 @@ session_start();
   <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/navbar.php" ?>
   <div class="container">
     <div class="row">
-      <div class="col-7 mx-auto my-5">
+      <div class="col-lg-7 col-md-8 col-sm-9 col-10 mx-auto my-5">
         <h1 class="title">About</h1>
         <p class="content">Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Proin eget tortor risus. Donec rutrum congue leo eget malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
         <h2 class="header">Computerised Data Registry</h2>
