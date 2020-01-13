@@ -4,6 +4,7 @@ session_start();
 
 if ( !(isset($_SESSION['type']) && $_SESSION['type'] <= 1) ) {
   header("Location: /cdr/public_html/");
+  exit();
 }
 
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
@@ -58,6 +59,7 @@ if ( isset($_POST['submit']) ) {
       $classCode = mysqli_fetch_assoc($result)['class_code'];
       mysqli_free_result($result);
       $error = "Subject already exists with class code $classCode";
+      goto end;
     }
   } else {
     die(mysqli_error($conn));
