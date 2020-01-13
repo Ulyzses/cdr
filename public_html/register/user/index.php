@@ -104,7 +104,8 @@ if ( isset($_POST['first']) ) {
 
   $success = "User successfully registered";
 
-  unset($_POST, $stage, $_SESSION['reg']);
+  unset($stage, $_SESSION['reg']);
+  $_POST = array();
 }
 
 function randomCode($size = 8) {
@@ -187,14 +188,6 @@ function randomCode($size = 8) {
       </div>
     </div>
   </div>
-
-  <script>
-    $('.alert').click(function() {
-      $(this).hide(300, function() {
-        $(this).remove();
-      })
-    });
-  </script>
 </body>
 
 </html>
