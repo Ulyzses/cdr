@@ -43,6 +43,9 @@ if ( isset($_POST['first']) ) {
     $_SESSION['reg']['hashed'] = hash_hmac("sha256", $_SESSION['reg']['username'], trim($_POST['password']));
   }
 } else if ( isset($_POST['second']) ) {
+  // Generate random user code
+  $userCode = randomCode();
+
   // Sanitise shit
   $_SESSION['reg']['email'] = trim($_POST['email']);
   $_SESSION['reg']['first_name'] = trim($_POST['first_name']);
@@ -74,6 +77,7 @@ if ( isset($_POST['first']) ) {
     (
       user_id,
       user_name,
+      user_code,
       user_email,
       user_first_name,
       user_middle_name,
@@ -83,6 +87,7 @@ if ( isset($_POST['first']) ) {
     (
       $id,
       '{$_SESSION['reg']['username']}',
+      '$userCode',
       '{$_SESSION['reg']['email']}',
       '{$_SESSION['reg']['first_name']}',
       '{$_SESSION['reg']['middle_name']}',
@@ -98,6 +103,16 @@ if ( isset($_POST['first']) ) {
   unset($_POST, $stage);
 }
 
+function randomCode($size = 8) {
+  $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $string = '';
+  
+  for ($i = 0; $i < $size; $i++) {
+    $string .= $chars[rand(0, 61)];
+  }
+  
+  return $string;
+}
 
  ?>
 
