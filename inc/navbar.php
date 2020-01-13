@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark py-2 sticky-top">
-  <a href="#" class="navbar-brand">CDR</a>
+  <a href="/cdr/public_html" class="navbar-brand">CDR</a>
 
   <!-- For average screens -->
   <div class="d-none d-md-flex">
@@ -14,35 +14,45 @@
         </div>
       <?php endif; ?>
       
+      <!-- Announcements -->
       <li class="navbar-item mr-0" title="Announcements">
         <a href="#" class="nav-link py-0 px-2">
           <i class="fas fa-bullhorn icon"></i>
         </a>
       </li>
+
+      <!-- Notifications -->
       <li class="nav-item mr-0" title="Notifications">
         <a href="" class="nav-link py-0 px-2">
           <i class="fas fa-bell icon"></i>
         </a>
       </li>
-      <li class="nav-item mr-0" title="Notifications">
-        <a href="" class="nav-link py-0 px-2">
-          <i class="fas fa-bell icon"></i>
-        </a>
-      </li>
+
+      <!-- User -->
       <li class="nav-item dropdown mr-0 px-2">
         <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown" title="Profile">
           <i class="fas fa-user icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right position-absolute">
           <a href="#" class="dropdown-item">My Profile</a>
-          <a href="#" class="dropdown-item">My Subjects</a>
+
+          <!-- Classes for teachers only -->
+          <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
+            <a href="#" class="dropdown-item">My Class</a>
+          <?php endif; ?>
+
+          <!-- Classes for students only -->
+          <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
+            <a href="#" class="dropdown-item">My Subjects</a>
+          <?php endif; ?>
+
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">User Settings</a>
           <div class="dropdown-divider"></div>
           <a href="../about" class="dropdown-item">About</a>
           <a href="#" class="dropdown-item">Help Center</a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item" id="logout">Log Out</a>
+          <a href="/cdr/public_html/logout" class="dropdown-item" id="logout">Log Out</a>
         </div>
       </li>
     </ul>
@@ -60,14 +70,24 @@
       <li class="navbar-item"><a href="#" class="nav-link">Notifications</a></li>
           <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">My Profile</a></li>
-      <li class="navbar-item"><a href="#" class="nav-link">My Subjects</a></li>
+
+      <!-- Classes for teachers only -->
+      <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
+        <li class="navbar-item"><a href="#" class="nav-link">My Classes</a></li>
+      <?php endif; ?>
+
+      <!-- Subjects for students only -->
+      <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
+        <li class="navbar-item"><a href="#" class="nav-link">My Subjects</a></li>
+      <?php endif; ?>
+      
           <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">User Settings</a></li>
           <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">About</a></li>
       <li class="navbar-item"><a href="#" class="nav-link">Help Center</a></li>
           <div class="dropdown-divider"></div>
-      <li class="navbar-item"><a href="#" class="nav-link">Log Out</a></li>
+      <li class="navbar-item"><a href="/cdr/public_html/logout" class="nav-link">Log Out</a></li>
     </ul>
   </div>
 </nav>
