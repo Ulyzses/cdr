@@ -19,6 +19,22 @@ body {
   text-align: center;
 }
 
-.form-control {
+.form-control,
+.input-group {
   margin-bottom: 1rem;
+}
+
+.input-group {
+  display: flex;
+}
+
+/* Class specific */
+
+.level {
+  max-width: 5rem;
+  margin-right: 1rem;
+}
+
+.level::-webkit-inner-spin-button {
+  display: none;
 }
