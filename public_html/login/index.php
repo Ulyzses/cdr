@@ -49,6 +49,7 @@ function getUserInfo($conn, $id) {
     $info = mysqli_fetch_assoc($result);
 
     $_SESSION['username'] = $info['user_name'];
+    $_SESSION['user_code'] = $info['user_code'];
     $_SESSION['user_data']['email'] = $info['user_email'];
     $_SESSION['user_data']['first_name'] = $info['user_first_name'];
     $_SESSION['user_data']['middle_name'] = $info['user_middle_name'];
