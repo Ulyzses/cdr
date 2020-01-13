@@ -4,6 +4,8 @@ session_start();
 
 if ( isset($_SESSION['logged_in']) && $_SESSION['logged_in'] ) {
   header("Location: /cdr/public_html");
+  
+  exit();
 }
 
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
