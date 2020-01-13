@@ -42,7 +42,7 @@ if ( isset($_POST['submit']) ) {
 }
 
 function getUserInfo($conn, $id) {
-  $query = "SELECT user_name, user_email, user_first_name, user_middle_name, user_last_name FROM `users` WHERE `user_id` = $id";
+  $query = "SELECT user_name, user_code, user_email, user_first_name, user_middle_name, user_last_name FROM `users` WHERE `user_id` = $id";
   $result = mysqli_query($conn, $query);
 
   if ( $result ) {
