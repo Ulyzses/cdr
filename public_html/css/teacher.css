@@ -1,0 +1,6 @@
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  border-right-width: 3px;
+}
