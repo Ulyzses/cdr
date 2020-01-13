@@ -91,11 +91,3 @@
     </ul>
   </div>
 </nav>
-
-<script>
-  $("#logout").click(e => {
-    if ( confirm("Do you wish to log out?") ) {
-      location.replace("/cdr/public_html/logout");
-    }
-  });
-</script>
