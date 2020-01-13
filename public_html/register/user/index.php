@@ -2,6 +2,10 @@
 
 session_start();
 
+if ( !(isset($_SESSION['type']) && $_SESSION['type'] == 0) ) {
+  header("Location: /cdr/public_html/");
+}
+
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
 unset($error);
@@ -54,10 +58,10 @@ if ( isset($_POST['first']) ) {
 
   // Insert into hashed table
   $query = "INSERT INTO
-    hashed
+    `hashed`
     (
-      user_key,
-      user_type
+      `user_key`,
+      `user_type`
     )
     VALUES
     (
@@ -73,15 +77,15 @@ if ( isset($_POST['first']) ) {
   $id = mysqli_insert_id($conn);
 
   $query = "INSERT INTO
-    users
+    `users`
     (
-      user_id,
-      user_name,
-      user_code,
-      user_email,
-      user_first_name,
-      user_middle_name,
-      user_last_name
+      `user_id`,
+      `user_name`,
+      `user_code`,
+      `user_email`,
+      `user_first_name`,
+      `user_middle_name`,
+      `user_last_name`
     )
     VALUES
     (
@@ -100,7 +104,7 @@ if ( isset($_POST['first']) ) {
 
   $success = "User successfully registered";
 
-  unset($_POST, $stage);
+  unset($_POST, $stage, $_SESSION['reg']);
 }
 
 function randomCode($size = 8) {
@@ -118,7 +122,7 @@ function randomCode($size = 8) {
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
   <link rel="stylesheet" href="../../css/register.css">
-  <title>Register</title>
+  <title>Register User | UPIS CDR</title>
 </head>
 
 <body>
