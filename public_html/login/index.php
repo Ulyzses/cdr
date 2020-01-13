@@ -77,10 +77,10 @@ function getUserInfo($conn, $id) {
 
               <!-- Error Message -->
               <?php if ( isset($error) ) : ?>
-                  <div class="alert alert-danger text-center" role="alert">
-                    <?php echo $error ?>
-                  </div>
-                <?php endif; ?>
+                <div class="alert alert-danger text-center" role="alert">
+                  <?php echo $error ?>
+                </div>
+              <?php endif; ?>
 
               <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
               <input type="password" name="password" class="form-control" placeholder="Password" required>
