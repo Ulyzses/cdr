@@ -38,7 +38,7 @@
 
           <!-- Classes for teachers only -->
           <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
-            <a href="#" class="dropdown-item">My Classes</a>
+            <a href="/cdr/public_html/teacher" class="dropdown-item">My Classes</a>
           <?php endif; ?>
 
           <!-- Classes for students only -->
@@ -73,7 +73,7 @@
 
       <!-- Classes for teachers only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
-        <li class="navbar-item"><a href="#" class="nav-link">My Classes</a></li>
+        <li class="navbar-item"><a href="/cdr/public_html/teacher" class="nav-link">My Classes</a></li>
       <?php endif; ?>
 
       <!-- Subjects for students only -->
