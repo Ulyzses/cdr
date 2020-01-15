@@ -1,3 +1,5 @@
+var active = "";
+
 $(document).ready(function() {
   $('[data-tooltip="tooltip"]').tooltip({
     trigger : 'hover'
@@ -6,16 +8,20 @@ $(document).ready(function() {
   $('.classes').on('click', 'li.kurasu', function() {
     $('.classes').find('.active').removeClass('active');
     $(this).addClass('active');
+    active = $(this).data('code');
+
+    loadSheet(active);
   });
 
   $('#newActivityForm').submit(e => {
     e.preventDefault();
 
-    let details = [
-      $('#activity_name').val(),
-      $('#activity_type').val(),
-      $('#activity_score').val()
-    ]
+    let details = {
+      code: active,
+      name: $('#activity_name').val(),
+      type: $('#activity_type').val(),
+      score: $('#activity_score').val()
+    };
 
     $.ajax({
       type: "post",
@@ -29,8 +35,32 @@ $(document).ready(function() {
         console.log(data);
       },
       error: (xhr, status, err) => {
-        console.log(err);
+        alert(err);
       }
     });
   });
 });
+
+async function loadSheet(subject) {
+  data = await getClassData(subject);
+
+  try {
+    ({ students, activities, outputs } = JSON.parse(data));
+  } catch(err) {
+    console.error(data);
+    return;
+  }
+
+  console.log(outputs);
+}
+
+function getClassData(subject) {
+  return $.ajax({
+    type: "post",
+    url: "teacher.php",
+    data: {
+      request: "load_class",
+      subject: subject
+    }
+  });
+}
