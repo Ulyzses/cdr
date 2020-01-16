@@ -115,13 +115,24 @@ input[type=number]::-webkit-inner-spin-button {
 
 /* TABLE */
 
-tbody {
-  outline: none;
+th {
+  white-space: nowrap;
 }
 
 th:first-child,
 td:first-child {
+  background-color: white;
   position: sticky;
   left: 0;
-  border-right-width: 3px;
+  border-left: none;
+  box-shadow: inset -2px 0 0 var(--light-grey);
+  white-space: nowrap;
+}
+
+.cell {
+  outline: none;
+}
+
+.cell:focus {
+  box-shadow: inset 1px 1px 0 grey, inset -1px -1px 0 grey;
 }

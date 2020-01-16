@@ -55,6 +55,10 @@ if ( $result ) {
       <div class="col-lg-9 col-md-8 flex-sm-column content">
         <div class="row h-100 position-relative">
           
+          <div class="main-content w-100 d-flex">
+            <h4 class="text-center align-self-center mx-auto">Please select a<br>class to start</h4>
+          </div>
+
           <!-- Add Activity Form -->
           <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -89,32 +93,6 @@ if ( $result ) {
           
           <!-- Add Activity Button -->
           <button type="button" class="add-button" data-tooltip="tooltip" data-placement="left" title="Add Activity"  data-toggle="modal" data-target="#addActivity">&plus;</button>
-          
-          <div class="main-content w-100 d-flex">
-            <h4 class="text-center align-self-center mx-auto">Please select a<br>class to start</h4>
-            
-            <!-- <table class="table table-sm table-bordered table-striped table-responsive text-center">
-              <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Seatwork 1</th>
-                  <th>Seatwork 2</th>
-                </tr>
-              </thead>
-              <tbody contenteditable="true">
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table> -->
-          </div>
           
         </div>
       </div>

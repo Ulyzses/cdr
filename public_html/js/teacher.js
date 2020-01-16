@@ -1,66 +1,247 @@
+/**
+ *  CODE OVERVIEW
+ * 
+ *  MAIN FEATURES
+ *  > switch subjects
+ *  > view grades
+ *  > add activities
+ * 
+ *  document.ready
+ *  > initialise tooltip
+ *  > initialise sidebar clicking
+ *  > new activity form submission
+ * 
+ *  GLOBAL VARIABLES
+ *    active - class code of the current selected class
+ *    
+ *    activities - array of activity objects
+ *    students - array of student objects
+ *    outputs - array of output objects
+ * 
+ *    $table - the table as a jQuery object
+ *    $thead - the thead as a jQuery object
+ *    $tbody - the tbody as a jQuery object
+ */
+
+/* DECLARE GLOBAL VARIABLES */
+
+'use strict'
+
+// Current active class code
 var active = "";
 
-$(document).ready(function() {
-  $('[data-tooltip="tooltip"]').tooltip({
-    trigger : 'hover'
+// Current active class details
+var activities = [];
+var students = [];
+var outputs = [];
+
+// Table elements
+var $table = $("<table>", {
+  "class": "table table-sm table-bordered table-striped table-responsive text-center"
+})
+
+var $thead = $("<thead>").appendTo($table);
+var $tbody = $("<tbody>").appendTo($table);
+
+var $headRow = $("<tr>").appendTo($thead);
+var $rows;
+
+/* FUNCTIONS */
+
+// Get the corresponding output object
+function getOutput(student, activity) {
+  const out = outputs.find(o => {
+    return o.activity_code == activity
+      && o.student_code == student
   });
 
-  $('.classes').on('click', 'li.kurasu', function() {
-    $('.classes').find('.active').removeClass('active');
-    $(this).addClass('active');
-    active = $(this).data('code');
-
-    loadSheet(active);
-  });
-
-  $('#newActivityForm').submit(e => {
-    e.preventDefault();
-
-    let details = {
-      code: active,
-      name: $('#activity_name').val(),
-      type: $('#activity_type').val(),
-      score: $('#activity_score').val()
-    };
-
-    $.ajax({
-      type: "post",
-      url: "teacher.php",
-      data: {
-        request: "new_activity",
-        details: details
-      },
-      dataType: "text",
-      success: (data, status, xhr) => {
-        console.log(data);
-      },
-      error: (xhr, status, err) => {
-        alert(err);
-      }
-    });
-  });
-});
-
-async function loadSheet(subject) {
-  data = await getClassData(subject);
-
-  try {
-    ({ students, activities, outputs } = JSON.parse(data));
-  } catch(err) {
-    console.error(data);
-    return;
-  }
-
-  console.log(outputs);
+  return ( out ) ? out : false;
 }
 
-function getClassData(subject) {
+// Load the sheet of a newly selected class
+async function loadSheet(code) {
+  // Get class data
+  let data = await dbGetClass(code);
+
+  try {
+    ({ activities, students, outputs } = JSON.parse(data));
+  } catch (e) {
+    console.error(e);
+    return
+  }
+
+  // Initial table
+  $('.main-content').empty().append($table);
+
+  loadHeaders();
+  loadBody();
+}
+
+// Get the information of the newly selected class
+// from the database
+function dbGetClass(code) {
   return $.ajax({
     type: "post",
     url: "teacher.php",
     data: {
       request: "load_class",
-      subject: subject
+      classCode: code
     }
   });
 }
+
+function loadHeaders() {
+  $headRow
+    .empty()  
+    .append($("<th>", {text: "Students"}));
+
+  activities.forEach(activity => {
+    $headRow.append($("<th>", {
+      text: `${activity.activity_name} (${activity.max_score})`,
+      "data-code": activity.activity_code
+    }));
+  });
+}
+
+function loadBody() {
+  $tbody.empty();
+  $rows = [];
+
+  students.forEach(student => {
+    let studentCode = student.user_code;
+
+    let $studentRow = $("<tr>", {
+      "data-code": studentCode
+    })
+      .appendTo($tbody) 
+      .append($("<td>", {
+        text: `${student.user_last_name.toUpperCase()}, ${student.user_first_name}` 
+      }));
+
+    $rows.push($studentRow);
+
+    activities.forEach(activity => {
+      let activityCode = activity.activity_code;
+      let out = getOutput(studentCode, activityCode);
+
+      $studentRow.append($("<td>", {
+        "class": "cell",
+        contenteditable: true,
+        text: ( out ) ? out.score : "",
+        focusout: function() {
+          updateScore($(this), studentCode, activityCode);
+        }
+      }));
+    });
+  })
+}
+
+async function newActivity() {
+  name = $('#activity_name').val();
+  type = $('#activity_type').val();
+  score = Number($('#activity_score').val());
+
+  result = await dbNewActivity(name, type, score);
+  console.log(result);
+}
+
+function dbNewActivity(name, type, score) {
+  return $.ajax({
+    type: "post",
+    url: "teacher.php",
+    data: {
+      request: 'add_activity',
+      details: {
+        classCode: active,
+        name: name,
+        type: type,
+        score: score
+      }
+    }
+  });
+}
+
+// Fires whenever a cell is focused out and updates
+// scores if there are any changes
+async function updateScore(cell, studentCode, activityCode) {
+  let output = getOutput(studentCode, activityCode);
+  let result;
+
+  if ( output ) {
+    // Check for changes in the score
+    if ( output.score == cell.text() ) return
+
+    // Check for invalid inputs
+    if ( isNaN(cell.text()) ) {
+      console.error("Invalid input");
+      return
+    }
+
+    // Delete object if score is now deleted
+    if ( cell.text() == "" ) {
+      outputs.splice(outputs.indexOf(output), 1);
+      result = await dbUpdateScore("delete_output", output);
+    } else {
+      output.score = Number(cell.text());
+      result = await dbUpdateScore("modify_output", output);
+    }
+  } else {
+    // Check if a score is added
+    if ( cell.text() == "" ) return
+
+    // Check if score is valid and create a new output object
+    if ( isNaN(cell.text()) ) {
+      console.error("Invalid input");
+      cell.text("");
+      return;
+    } else {
+      // Create a new object if score is valid and insert into database
+      output = {
+        student_code: studentCode,
+        activity_code: activityCode,
+        score: Number(cell.text())
+      }
+
+      outputs.push(output);
+      result = await dbUpdateScore("add_output", output);
+    }
+  }
+
+  console.log(result);
+}
+
+function dbUpdateScore(request, output) {
+  return $.ajax({
+    type: "post",
+    url: "teacher.php",
+    data: {
+      request: request,
+      output: output
+    }
+  });
+}
+
+/* EVENT LISTENERS */
+
+$(document).ready(() => {
+  // Initialise the tooltip
+  $('[data-tooltip="tooltip"]').tooltip({
+    trigger: "hover"
+  });
+
+  // Switch active class when clicking on sidebar
+  $('.classes').on('click', 'li.kurasu', function() {
+    $('.active').removeClass('active');
+    $(this).addClass('active');
+    
+    active = $(this).data('code');
+    loadSheet(active);
+  });
+
+  // New activity listener
+  $('#newActivityForm').submit(e => {
+    e.preventDefault();
+
+    newActivity();
+  })
+});
