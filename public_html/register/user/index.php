@@ -127,7 +127,8 @@ function randomCode($size = 8) {
 </head>
 
 <body>
-  <div class="container h-100">
+  <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/navbar.php" ?>
+  <div class="container flex-grow-1">
     <div class="row h-100 align-items-center">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-register">
@@ -156,8 +157,8 @@ function randomCode($size = 8) {
 
                 <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <input type="password" name="password_confirm" class="form-control" placeholder="Confirm Password">
-                <select name="type" class="custom-select">
+                <input type="password" name="password_confirm" class="form-control" placeholder="Confirm Password" required>
+                <select name="type" class="custom-select" required>
                   <option value="" disabled selected>Account Type</option>
                   <option value="0">Administrator</option>
                   <option value="1">Teacher</option>
