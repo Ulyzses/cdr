@@ -21,6 +21,24 @@
         </a>
       </li>
 
+      <!-- Classes for teachers only -->
+      <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
+        <li class="nav-item mr-0" title="Notifications">
+          <a href="/cdr/public_html/teacher" class="nav-link py-0 px-2">
+            My Classes
+          </a>
+        </li>
+      <?php endif; ?>
+
+      <!-- Subjects for students only -->
+      <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
+        <li class="nav-item mr-0" title="Notifications">
+          <a href="#" class="nav-link py-0 px-2">
+            My Subjects
+          </a>
+        </li>
+      <?php endif; ?>
+      
       <!-- Notifications -->
       <li class="nav-item mr-0" title="Notifications">
         <a href="" class="nav-link py-0 px-2">
@@ -35,19 +53,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right position-absolute">
           <a href="#" class="dropdown-item">My Profile</a>
-
-          <!-- Classes for teachers only -->
-          <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
-            <a href="/cdr/public_html/teacher" class="dropdown-item">My Classes</a>
-          <?php endif; ?>
-
-          <!-- Classes for students only -->
-          <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
-            <a href="#" class="dropdown-item">My Subjects</a>
-          <?php endif; ?>
-
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">User Settings</a>
+          <a href="#" class="dropdown-item">Settings</a>
           <div class="dropdown-divider"></div>
           <a href="../about" class="dropdown-item">About</a>
           <a href="#" class="dropdown-item">Help Center</a>
