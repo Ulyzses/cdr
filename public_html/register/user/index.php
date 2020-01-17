@@ -172,7 +172,7 @@ function randomCode($size = 8) {
             <?php if ( isset($_POST['first']) && $stage == 2 ) : ?>
               <form method="post" action="./">
 
-                <input type="text" name="email" class="form-control" placeholder="E-mail" required>
+                <input type="text" name="email" class="form-control" placeholder="E-mail" autofocus>
                 <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
                 <input type="text" name="middle_name" class="form-control" placeholder="Middle Name">
                 <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>  
