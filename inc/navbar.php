@@ -7,11 +7,19 @@
       
       <!-- Control panel for administrators only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 0 ) : ?>
-        <div class="nav-item mr-0" title="Control Panel">
+        <li class="nav-item mr-0" title="Control Panel">
           <a href="/cdr/control.php" class="nav-link py-0 px-2">
             <i class="fas fa-sliders-h"></i>
           </a>
-        </div>
+        </li>
+
+        <li class="nav-item mr-0" title="Register User">
+          <a href="/cdr/public_html/register/user" class="nav-link py-0 px-2">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+          </a>
+        </li>
+
+
       <?php endif; ?>
       
       <!-- Announcements -->
@@ -55,7 +63,7 @@
           <a href="#" class="dropdown-item">My Profile</a>
           <a href="#" class="dropdown-item">Settings</a>
           <div class="dropdown-divider"></div>
-          <a href="../about" class="dropdown-item">About</a>
+          <a href="/cdr/public_html/about" class="dropdown-item">About</a>
           <a href="#" class="dropdown-item">Help Center</a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item" id="logout">Log Out</a>
@@ -90,7 +98,7 @@
       <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link">User Settings</a></li>
       <div class="dropdown-divider"></div>
-      <li class="navbar-item"><a href="#" class="nav-link">About</a></li>
+      <li class="navbar-item"><a href="/cdr/public_html/about" class="nav-link">About</a></li>
       <li class="navbar-item"><a href="#" class="nav-link">Help Center</a></li>
       <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="#" class="nav-link" id="logout">Log Out</a></li>
