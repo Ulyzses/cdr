@@ -41,7 +41,7 @@
       <!-- Subjects for students only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
         <li class="nav-item mr-0" title="Notifications">
-          <a href="#" class="nav-link py-0 px-2">
+          <a href="/cdr/public_html/student" class="nav-link py-0 px-2">
             My Subjects
           </a>
         </li>
@@ -92,7 +92,7 @@
 
       <!-- Subjects for students only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
-        <li class="navbar-item"><a href="#" class="nav-link">My Subjects</a></li>
+        <li class="navbar-item"><a href="/cdr/public_html/student" class="nav-link">My Subjects</a></li>
       <?php endif; ?>
       
       <div class="dropdown-divider"></div>
