@@ -1,8 +1,12 @@
 html,
 body {
   height: 100%;
+}
+
+body {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* FOR SIDEBAR */
@@ -35,7 +39,7 @@ body {
   cursor: pointer;
 }
 
-.active {
+.sidebar .active {
   background-color: var(--light-grey);
   border-left: 3px solid var(--gray);
   padding-left: calc(1rem - 2px);
@@ -56,49 +60,27 @@ body {
 }
 
 /* FOR CONTENT */
+.main-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  flex-direction: column;
+}
 
 /* ADD ACTIVITY */
 
 .add-button {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+.new-activity {
+  align-self: flex-end;
   border: none;
   background-color: white;
-  box-shadow: 0 1px 2px #00000030;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-}
-
-.add-button:focus {
-  outline: none;
-}
-
-.add-form {
-  position: absolute;
-}
-
-.add-form .modal-dialog {
-  position: absolute;
-  margin: 0;
-  top: 2rem;
-  right: 2rem;
-  border-top-right-radius: 1.5rem;
-  box-shadow: 0 1px 2px #000000b0;
-}
-
-.add-form .modal-content {
-  border-top-right-radius: 1.5rem;
-}
-
-.modal.fade .modal-dialog {
-  transform: none;
-  transition-duration: 0.2s;
 }
 
 .form-control {
@@ -114,19 +96,66 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 /* TABLE */
+.table-nav {
+  padding: 0 1rem;
+  height: 3rem;
+}
+
+.table-nav .nav-tabs {
+  border-bottom: none;
+}
+
+.table-nav .nav-item {
+  margin: 0;
+  align-self: flex-end;
+}
+
+.table-nav .nav-link {
+  margin-top: auto;
+  padding: 0.25rem 1rem;
+  border: 0.5px solid var(--light-grey);
+  border-bottom: none;
+  /* border-top-left-radius: 0.25rem; */
+  /* border-top-right-radius: 0.25rem; */
+}
+
+.table-nav .nav-link:focus {
+  outline: none;
+}
+
+.table-nav .nav-link:hover {
+  border-color: var(--light-grey);
+}
+
+.table-div {
+  overflow: auto;
+}
+
+.table {
+  margin: 0;
+}
 
 th {
+  top: 0;
+  box-shadow: inset 0 -2px 0 var(--light-grey);
+}
+
+th,
+td:first-child {
   white-space: nowrap;
+  background-color: white;
+  position: sticky;
 }
 
 th:first-child,
 td:first-child {
-  background-color: white;
-  position: sticky;
   left: 0;
-  border-left: none;
   box-shadow: inset -2px 0 0 var(--light-grey);
-  white-space: nowrap;
+}
+
+th:first-child {
+  z-index: 100;
+  box-shadow: inset 0 -2px 0 var(--light-grey), inset -2px 0 0 var(--light-grey);
 }
 
 .cell {

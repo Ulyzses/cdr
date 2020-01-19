@@ -187,7 +187,12 @@ function addActivity($conn, $details) {
   $result = mysqli_query($conn, $query);
   if ( !$result ) die(mysqli_error($conn));
 
-  die("Success");
+  die(json_encode(array(
+    "activity_code" => $activityCode,
+    "activity_name" => $name,
+    "activity_type" => $type,
+    "max_score" => $score
+  )));
 }
 
 // Adds a new output to the database

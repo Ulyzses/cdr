@@ -52,48 +52,71 @@ if ( $result ) {
       </div>
 
       <!-- Content -->
-      <div class="col-lg-9 col-md-8 flex-sm-column content">
-        <div class="row h-100 position-relative">
-          
-          <div class="main-content w-100 d-flex">
-            <h4 class="text-center align-self-center mx-auto">Please select a<br>class to start</h4>
-          </div>
-
-          <!-- Add Activity Form -->
-          <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Add Activity</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form id="newActivityForm">
-                  <div class="modal-body">
-                    <input type="text" id="activity_name" class="form-control" placeholder="Name" required>
-                    <select id="activity_type" class="custom-select form-control" required>
-                      <option value="" disabled selected>Type</option>
-                      <option value="seatwork">Seatwork</option>
-                      <option value="homework">Homework</option>
-                      <option value="groupwork">Groupwork</option>
-                      <option value="quiz">Quiz</option>
-                      <option value="project">Project</option>
-                    </select>
-                  <input type="number" id="activity_score" class="form-control" placeholder="Max Score" required>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button name="new_submit" type="submit" class="btn btn-primary" id="newActivity">Save changes</button>
-                  </div>
-                </form>
-              </div>
+      <div class="col-lg-9 col-md-8 flex-sm-column d-flex content">
+        <div class="row table-nav">
+          <ul class="nav nav-tabs activity-types">
+            <li class="nav-item">
+              <button class="nav-link active" data-toggle="tab" value="all">All</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-toggle="tab" value="seatwork">Seatworks</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-toggle="tab" value="homework">Homework</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-toggle="tab" value="quiz">Quizzes</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-toggle="tab" value="project">Projects</button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-toggle="tab" value="new">&plus;</button>
+            </li>
+          </ul>
+            <button class="ml-auto new-activity" data-tooltip="tooltip" data-placement="left" title="Add Activity" data-toggle="modal" data-target="#addActivity">&plus;</button>
+        </div>
+        <div class="row position-relative flex-grow-1">
+          <div class="main-content d-flex">
+            <div class="table-div d-flex flex-grow-1">
+              <h4 class="text-center align-self-center mx-auto">Please select a<br>class to start</h4>
             </div>
           </div>
-          
-          <!-- Add Activity Button -->
-          <button type="button" class="add-button" data-tooltip="tooltip" data-placement="left" title="Add Activity"  data-toggle="modal" data-target="#addActivity">&plus;</button>
-          
+        </div>
+
+        <!-- Add Activity Button -->
+        <!-- <button type="button" class="add-button" data-tooltip="tooltip" data-placement="left" title="Add Activity"  data-toggle="modal" data-target="#addActivity">&plus;</button> -->
+
+        <!-- Add Activity Form -->
+        <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Activity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="newActivityForm">
+                <div class="modal-body">
+                  <input type="text" id="activity_name" class="form-control" placeholder="Name" required autofocus>
+                  <select id="activity_type" class="custom-select form-control" required>
+                    <option value="" disabled selected>Type</option>
+                    <option value="seatwork">Seatwork</option>
+                    <option value="homework">Homework</option>
+                    <option value="groupwork">Groupwork</option>
+                    <option value="quiz">Quiz</option>
+                    <option value="project">Project</option>
+                  </select>
+                <input type="number" id="activity_score" class="form-control" placeholder="Max Score" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button name="new_submit" type="submit" class="btn btn-primary" id="newActivity">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

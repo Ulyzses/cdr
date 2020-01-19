@@ -21,6 +21,8 @@
  *    $table - the table as a jQuery object
  *    $thead - the thead as a jQuery object
  *    $tbody - the tbody as a jQuery object
+ * 
+ *    $addButton - add button as a jQuery object
  */
 
 /* DECLARE GLOBAL VARIABLES */
@@ -45,6 +47,14 @@ var $tbody = $("<tbody>").appendTo($table);
 
 var $headRow = $("<tr>").appendTo($thead);
 var $rows;
+
+// var $addButton = $("<button>", {
+//   type: "button",
+//   "class": "add-button",
+//   "data-toggle": "modal",
+//   "data-target": "#addActivity",
+//   text: "Add Activity"
+// });
 
 /* FUNCTIONS */
 
@@ -71,7 +81,7 @@ async function loadSheet(code) {
   }
 
   // Initial table
-  $('.main-content').empty().append($table);
+  $('.table-div').empty().append($table);
 
   loadHeaders();
   loadBody();
@@ -101,6 +111,8 @@ function loadHeaders() {
       "data-code": activity.activity_code
     }));
   });
+
+  // $headRow.append($("<th>").append($addButton));
 }
 
 function loadBody() {
@@ -136,13 +148,38 @@ function loadBody() {
   })
 }
 
-async function newActivity() {
-  name = $('#activity_name').val();
-  type = $('#activity_type').val();
-  score = Number($('#activity_score').val());
+function addColumn(activity) {
+  $headRow.append($("<th>", {
+    text: `${activity.activity_name} (${activity.max_score})`,
+    "data-code": activity.activity_code
+  }));
 
-  result = await dbNewActivity(name, type, score);
-  console.log(result);
+  $rows.forEach(row => {
+    row.append($("<td>", {
+      "class": "cell",
+      contenteditable: true,
+      focusout: function() {
+        updateScore($(this), row.data('code'), activity.activity_code);
+      }
+    }));
+  });
+}
+
+async function newActivity() {
+  const name = $('#activity_name').val();
+  const type = $('#activity_type').val();
+  const score = Number($('#activity_score').val());
+
+  const result = await dbNewActivity(name, type, score);
+  // addColumn();
+  try {
+    let newActivity = JSON.parse(result);
+    activities.push(newActivity);
+    console.log(newActivity);
+    addColumn(newActivity);
+  } catch (e) {
+    console.log(result);
+  }
 }
 
 function dbNewActivity(name, type, score) {
@@ -231,7 +268,7 @@ $(document).ready(() => {
 
   // Switch active class when clicking on sidebar
   $('.classes').on('click', 'li.kurasu', function() {
-    $('.active').removeClass('active');
+    $('.classes').find('.active').removeClass('active');
     $(this).addClass('active');
     
     active = $(this).data('code');
@@ -244,4 +281,15 @@ $(document).ready(() => {
 
     newActivity();
   })
+
+  // Modal open listener
+  $(document).on('shown.bs.modal', function () {
+    // console.log($(this));
+    $(this).find("input:visible:first").focus();
+  });
+
+  // Switch tabs
+  $(document).on('click', '.activity-types', function() {
+    console.log($(this).find('.nav-link.active').val());
+  });
 });
