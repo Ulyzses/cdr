@@ -100,22 +100,22 @@ function dbGetClass(code) {
   });
 }
 
-function loadHeaders() {
+function loadHeaders(filter = "all") {
   $headRow
     .empty()  
     .append($("<th>", {text: "Students"}));
 
-  activities.forEach(activity => {
+  let filteredActs = ( filter == "all" ) ? activities : filterActivities(filter);
+
+  filteredActs.forEach(activity => {
     $headRow.append($("<th>", {
       text: `${activity.activity_name} (${activity.max_score})`,
       "data-code": activity.activity_code
     }));
   });
-
-  // $headRow.append($("<th>").append($addButton));
 }
 
-function loadBody() {
+function loadBody(filter = "all") {
   $tbody.empty();
   $rows = [];
 
@@ -132,7 +132,9 @@ function loadBody() {
 
     $rows.push($studentRow);
 
-    activities.forEach(activity => {
+    let filteredActs = ( filter == "all" ) ? activities : filterActivities(filter);
+
+    filteredActs.forEach(activity => {
       let activityCode = activity.activity_code;
       let out = getOutput(studentCode, activityCode);
 
@@ -165,18 +167,21 @@ function addColumn(activity) {
   });
 }
 
+function filterActivities(filter) {
+  return activities.filter(activity => activity.activity_type == filter);
+}
+
 async function newActivity() {
   const name = $('#activity_name').val();
   const type = $('#activity_type').val();
   const score = Number($('#activity_score').val());
 
   const result = await dbNewActivity(name, type, score);
-  // addColumn();
   try {
     let newActivity = JSON.parse(result);
     activities.push(newActivity);
-    console.log(newActivity);
     addColumn(newActivity);
+    $('#addActivity').modal('hide');
   } catch (e) {
     console.log(result);
   }
@@ -290,6 +295,8 @@ $(document).ready(() => {
 
   // Switch tabs
   $(document).on('click', '.activity-types', function() {
-    console.log($(this).find('.nav-link.active').val());
+    let filter = $(this).find('.nav-link.active').val();
+    loadHeaders(filter);
+    loadBody(filter);
   });
 });
