@@ -57,3 +57,22 @@ i {
 .alertOkButton {
   align-self: flex-end;
 }
+
+/* SCROLL BAR */
+::-webkit-scrollbar {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  /* border: 1px solid black; */
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
