@@ -31,7 +31,7 @@ if ( $result ) {
     <div class="row h-100">
 
       <!-- Sidebar -->
-      <div class="col-lg-3 col-md-4 d-none d-md-flex h-100 flex-column sidebar">
+      <div class="col-lg-2 col-md-3 d-none d-md-flex h-100 flex-column sidebar">
         <h1 class="sidebar-title">
           <i class="fas fa-chalkboard-teacher"></i>  
           Classes
@@ -40,10 +40,10 @@ if ( $result ) {
           <?php foreach($classes as $class) : ?>
             <li class="kurasu" data-code="<?php echo $class['class_code'] ?>">
               <h3 class="title">
-                <span class="level"><?php echo $class['class_level'] ?></span>&ndash;<span class="section"><?php echo $class['class_section'] ?></span>
+                <?php echo $class['class_level'] . "&ndash;" . $class['class_section'] ?>
               </h3>
               <p class="details">
-                <span class="subject"><?php echo $class['class_subject'] ?></span> | <span class="room"><?php echo $class['class_room'] ?></span>
+                <?php echo $class['class_subject'] ?>
               </p>
             </li>
           <?php endforeach; ?>
@@ -52,7 +52,7 @@ if ( $result ) {
       </div>
 
       <!-- Content -->
-      <div class="col-lg-9 col-md-8 flex-sm-column d-flex content">
+      <div class="col-lg-10 col-md-9 flex-sm-column d-flex content">
         <div class="row table-nav">
           <ul class="nav nav-tabs activity-types">
             <li class="nav-item">
