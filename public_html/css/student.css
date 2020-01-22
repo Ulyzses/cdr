@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* FOR SIDEBAR */
+.sidebar {
+  background-color: white;
+  border-right: 1px solid var(--light-grey);
+}
+
+.sidebar-title {
+  margin: 2rem 0 0.5rem;
+  
+  font-size: 1.2rem;
+  text-transform: unset;
+}
+
+.sidebar-title i {
+  font-size: inherit;
+}
+
+.subject {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  
+  border-radius: 0.5rem;
+  border: 1px solid var(--light-grey);
+}
+
+.subject:hover {
+  cursor: pointer;
+}
+
+.sidebar .active {
+  background-color: var(--lighter-grey);
+  border-left: 3px solid var(--gray);
+  padding-left: calc(1rem - 2px);
+}
+
+.title {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  text-transform: unset;
+  letter-spacing: 1px;
+}
+
+.details {
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  color: var(--gray);
+  letter-spacing: 1px;
+}
+
+/* FOR CONTENT */
+.content > * {
+  margin: 2rem 0 0;
+}
+
+.main-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px var(--light-grey);
+}
+
+.table {
+  margin: 0;
+}
+
+#scoresCard tr {
+  display: flex;
+}
