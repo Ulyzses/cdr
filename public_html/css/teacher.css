@@ -13,7 +13,6 @@ body {
 .sidebar {
   background-color: white;
   border-right: 1px solid var(--light-grey);
-  padding: 0 1.5rem;
 }
 
 .sidebar-title {
@@ -40,7 +39,7 @@ body {
 }
 
 .sidebar .active {
-  background-color: var(--light-grey);
+  background-color: var(--lighter-grey);
   border-left: 3px solid var(--gray);
   padding-left: calc(1rem - 2px);
 }
