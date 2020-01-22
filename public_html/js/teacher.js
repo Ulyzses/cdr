@@ -76,7 +76,7 @@ async function loadSheet(code) {
   try {
     ({ activities, students, outputs } = JSON.parse(data));
   } catch (e) {
-    console.error(e);
+    console.error(data);
     return
   }
 
@@ -203,6 +203,28 @@ function dbNewActivity(name, type, score) {
   });
 }
 
+function moveFocus(curr, key) {
+  let x = curr.index();
+  let y = curr.parent()[0].rowIndex - 1;
+
+  switch (key) {
+    case 37: // left
+      $rows[y].children()[x - 1].focus();
+      break;
+    case 38: // up
+      $rows[y - 1].children()[x].focus();      
+      break;
+    case 39: // right
+      $rows[y].children()[x + 1].focus();
+      break;
+    case 40: // down
+      $rows[y + 1].children()[x].focus();   
+      break;
+    default:
+      return;
+  }
+}
+
 // Fires whenever a cell is focused out and updates
 // scores if there are any changes
 async function updateScore(cell, studentCode, activityCode) {
@@ -298,5 +320,13 @@ $(document).ready(() => {
     let filter = $(this).find('.nav-link.active').val();
     loadHeaders(filter);
     loadBody(filter);
+  });
+
+  // Arrow key presses
+  $tbody.on('keydown', '.cell', function(e) {
+    if ( e.which <= 40 && e.which >= 37 ) {
+      e.preventDefault();
+      moveFocus($(this), e.which);
+    }
   });
 });
