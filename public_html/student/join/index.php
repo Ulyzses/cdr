@@ -11,7 +11,7 @@ require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
 unset($error);
 
-if ( isset($_POST['submit']) ) {
+if ( isset($_POST['submit']) || isset($_POST['request'])) {
   $_SESSION['join']['subject'] = trim($_POST['subject']);
   $_SESSION['join']['student'] = ( $_SESSION['type'] == 0 ) ? trim($_POST['student']) : $_SESSION['user_code'];
   
@@ -106,6 +106,12 @@ if ( isset($_POST['submit']) ) {
 
     unset($_SESSION['join']);
     $_POST = array();
+
+    if ( isset($_REQUEST) ) {
+      die($result);
+    }
+  } else {
+    die($error);
   }
 }
 

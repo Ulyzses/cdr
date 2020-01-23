@@ -62,11 +62,19 @@ if ( $result ) {
               </p>
             </li>
           <?php endforeach; ?>
-          <hr>
-          <li class="subject" href="/cdr/student/join">
-            <h3 class="title my-0">Join Class</h3>
-          </li>
         </ul>
+        <hr>
+        <form id="joinClassForm">
+          <div class="input-group">
+            <input type="text" id="joinCode" class="form-control" placeholder="Class Code">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-primary btn-block text-uppercase" type="submit">Join Class</button>
+            </div>
+          </div>
+        </form>
+        <!-- <li class="subject" href="/cdr/student/join"> -->
+          <!-- <h3 class="title my-0">Join Class</h3> -->
+        <!-- </li> -->
       </div>
 
       <!-- Content -->
