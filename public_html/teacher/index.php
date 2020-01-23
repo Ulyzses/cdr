@@ -43,7 +43,7 @@ if ( $result ) {
                 <?php echo $class['class_level'] . "&ndash;" . $class['class_section'] ?>
               </h3>
               <p class="details">
-                <?php echo $class['class_subject'] ?>
+                <?php echo "{$class['class_subject']} | {$class['class_code']}" ?>
               </p>
             </li>
           <?php endforeach; ?>
@@ -83,9 +83,6 @@ if ( $result ) {
             </div>
           </div>
         </div>
-
-        <!-- Add Activity Button -->
-        <!-- <button type="button" class="add-button" data-tooltip="tooltip" data-placement="left" title="Add Activity"  data-toggle="modal" data-target="#addActivity">&plus;</button> -->
 
         <!-- Add Activity Form -->
         <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
