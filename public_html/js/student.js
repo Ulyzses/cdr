@@ -66,6 +66,23 @@ function dbLoadScores(subject = active) {
   });
 }
 
+async function joinClass(code) {
+  let result = await dbJoinClass(code);
+
+  console.log(result);
+}
+
+function dbJoinClass(code) {
+  return $.ajax({
+    type: "post",
+    url: "/cdr/public_html/student/join/",
+    data: {
+      request: "join",
+      subject: code
+    }
+  });
+}
+
 $(document).ready(() => {
   // Switch active class
   $('.subjects').on('click', 'li.subject:not(:last)', function() {
@@ -74,6 +91,15 @@ $(document).ready(() => {
 
     active = $(this).data('code');
     loadScores(active);
+  })
+
+  // Join Class
+  $('#joinClassForm').submit(e => {
+    e.preventDefault();
+
+    let classCode = $('#joinCode').val();
+
+    joinClass(classCode);
   })
 
   // Select first class
