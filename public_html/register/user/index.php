@@ -2,9 +2,9 @@
 
 session_start();
 
-if ( !(isset($_SESSION['type']) && $_SESSION['type'] == 0) ) {
-  header("Location: /cdr/public_html/");
-}
+// if ( !(isset($_SESSION['type']) && $_SESSION['type'] == 0) ) {
+//   header("Location: /cdr/public_html/");
+// }
 
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
@@ -60,11 +60,13 @@ if ( isset($_POST['first']) ) {
   $query = "INSERT INTO
     `hashed`
     (
+      `user_name`,
       `user_key`,
       `user_type`
     )
     VALUES
     (
+      '{$_SESSION['reg']['username']}',
       '{$_SESSION['reg']['hashed']}',
       {$_SESSION['reg']['type']}
     )
@@ -160,7 +162,9 @@ function randomCode($size = 8) {
                 <input type="password" name="password_confirm" class="form-control" placeholder="Confirm Password" required>
                 <select name="type" class="custom-select" required>
                   <option value="" disabled selected>Account Type</option>
-                  <option value="0">Administrator</option>
+                  <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 0 ) : ?>
+                    <option value="0">Administrator</option>
+                  <?php endif; ?>
                   <option value="1">Teacher</option>
                   <option value="2">Student</option>
                 </select>
