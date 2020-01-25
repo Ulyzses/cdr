@@ -183,7 +183,7 @@ async function newActivity() {
     addColumn(newActivity);
     $('#addActivity').modal('hide');
   } catch (e) {
-    console.log(result);
+    console.error(result);
   }
 }
 
