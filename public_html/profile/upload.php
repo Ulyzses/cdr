@@ -22,9 +22,19 @@ if ( isset($_POST['request']) && $_POST['request'] == "upload" ) {
 
       // Add to database
       $query = "
-        INSERT INTO `images` (`file_name`, `uploaded`)
-        VALUES ('$fileName', now())
-        ON DUPLICATE KEY UPDATE `uploaded`=now()
+        INSERT INTO
+          `images` (
+            `file_name`,
+            `user_code`,
+            `uploaded`
+          )
+        VALUES (
+          '$fileName',
+          '$user',
+          now()
+        )
+        ON DUPLICATE KEY
+        UPDATE `uploaded`=now()
       ";
 
       $result = mysqli_query($conn, $query);
