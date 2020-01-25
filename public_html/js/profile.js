@@ -1,11 +1,12 @@
-async function uploadPic(form) {
-  data = new FormData(form);
-  console.log(2);
+'use strict'
 
-  result = await dbUploadForm(data);
-  console.log(3);
+async function uploadPic(form) {
+  let data = new FormData(form);
+
+  let result = await dbUploadForm(data);
 
   console.log(result);
+  updateImg($("#displayImg")[0]);
 }
 
 function dbUploadForm(data) {
@@ -20,7 +21,22 @@ function dbUploadForm(data) {
   });
 }
 
+function updateImg(img) {
+  let src = img.src;
+  src.replace(/\?.*/g, "");
+  src += "?" + new Date().getTime()
+  img.src = src;
+}
+
 $(document).ready(e => {
+  $("#displayImg").click( function(e) {
+    $("#file").click();
+  })
+
+  $("#file").change(function () {
+    $("#uploadPicForm").submit();
+  });
+
   $("#uploadPicForm").submit( function(e) {
     e.preventDefault();
 
