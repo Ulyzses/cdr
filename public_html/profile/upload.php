@@ -34,7 +34,9 @@ if ( isset($_POST['request']) && $_POST['request'] == "upload" ) {
           now()
         )
         ON DUPLICATE KEY
-        UPDATE `uploaded`=now()
+        UPDATE
+          `file_name` = '$fileName',
+          `uploaded` = now()
       ";
 
       $result = mysqli_query($conn, $query);
