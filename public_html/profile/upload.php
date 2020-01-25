@@ -2,7 +2,7 @@
 
 session_start();
 
-$allowed = array('jpg', 'png', 'jpeg');
+$allowed = array('jpg', 'png', 'jpeg', 'svg');
 
 if ( isset($_POST['request']) && $_POST['request'] == "upload" ) {
   require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
