@@ -60,7 +60,7 @@
           <i class="fas fa-user icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right position-absolute">
-          <a href="#" class="dropdown-item">My Profile</a>
+          <a href="/cdr/public_html/profile" class="dropdown-item">My Profile</a>
           <a href="#" class="dropdown-item">Settings</a>
           <div class="dropdown-divider"></div>
           <a href="/cdr/public_html/about" class="dropdown-item">About</a>
@@ -83,7 +83,7 @@
       <li class="navbar-item"><a href="#" class="nav-link">Announcements</a></li>
       <li class="navbar-item"><a href="#" class="nav-link">Notifications</a></li>
           <div class="dropdown-divider"></div>
-      <li class="navbar-item"><a href="#" class="nav-link">My Profile</a></li>
+      <li class="navbar-item"><a href="/cdr/public_html/profile" class="nav-link">My Profile</a></li>
 
       <!-- Classes for teachers only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
