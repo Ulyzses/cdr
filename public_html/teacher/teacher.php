@@ -8,6 +8,7 @@ if ( !(isset($_SESSION['type']) && $_SESSION['type'] <= 1) ) {
 
 if ( isset($_POST['request']) ) {
   require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
+  require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/notification.php");
 
   switch ( $_POST['request'] ) {
     case 'load_class':
@@ -240,7 +241,17 @@ function addOutput($conn, $output) {
   $result = mysqli_query($conn, $query);
   if ( !$result ) die(mysqli_error($conn));
 
-  die("Output successfully added");
+  echo("Output successfully added\n");
+  
+  // Notify
+  $notifDetails = array(
+    "studentCode" => $studentCode,
+    "teacherCode" => $_SESSION['user_code'],
+    "activityCode" => $activityCode,
+    "time" => time()
+  );
+
+  notifyStudentScore($conn, "add", $notifDetails);
 }
 
 // Modifies an existing output in the databse
@@ -259,7 +270,17 @@ function modifyOutput($conn, $output) {
   $result = mysqli_query($conn, $query);
   if ( !$result ) die(mysqli_error($conn));
   
-  die("Output successfully altered");
+  echo("Output successfully altered");
+
+  // Notify
+  $notifDetails = array(
+    "studentCode" => $studentCode,
+    "teacherCode" => $_SESSION['user_code'],
+    "activityCode" => $activityCode,
+    "time" => time()
+  );
+
+  notifyStudentScore($conn, "modify", $notifDetails);
 
 }
 
@@ -277,6 +298,16 @@ function deleteOutput($conn, $output) {
   $result = mysqli_query($conn, $query);
   if ( !$result ) die(mysqli_error($conn));
   
-  die("Output successfully deleted");
+  echo("Output successfully deleted");
+  
+  // Notify
+  $notifDetails = array(
+    "studentCode" => $studentCode,
+    "teacherCode" => $_SESSION['user_code'],
+    "activityCode" => $activityCode,
+    "time" => time()
+  );
+
+  notifyStudentScore($conn, "delete", $notifDetails);
 }
  ?>
