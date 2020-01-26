@@ -4,9 +4,23 @@ session_start();
 
 $allowed = array('jpg', 'png', 'jpeg', 'svg');
 
-if ( isset($_POST['request']) && $_POST['request'] == "upload" ) {
+if ( isset($_POST['request']) ) {
   require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
+  switch($_POST['request']) {
+    case 'upload':
+      uploadImg($conn, $allowed);
+      break;
+    case 'get_display':
+      getDisplayImg($conn);
+      break;
+    default:
+      die("Unknown request");
+  }
+  
+}
+
+function uploadImg($conn, $allowed) {
   $type = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 
   // Check if file is a valid image
@@ -51,6 +65,29 @@ if ( isset($_POST['request']) && $_POST['request'] == "upload" ) {
     }
   } else {
     die("Please select a valid file");
+  }
+}
+
+function getDisplayImg($conn) {
+  $user = $_SESSION['user_code'];
+
+  // Get image
+  $query = "
+    SELECT `file_name`
+    FROM `images`
+    WHERE `user_code` = '$user'
+  ";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( $result ) {
+    if ( mysqli_num_rows($result) == 0 ) {
+      die("Image doesn't exist in database");
+    } else {
+      die(mysqli_fetch_row($result)[0]);
+    }
+  } else {
+    die(mysqli_error($conn));
   }
 }
  ?>

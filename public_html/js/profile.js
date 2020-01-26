@@ -6,12 +6,10 @@ async function uploadPic(form) {
   let result = await dbUploadForm(data);
 
   console.log(result);
-  updateImg($("#displayImg")[0]);
+  updateImg();
 }
 
 function dbUploadForm(data) {
-  console.log(data.get("file"));
-
   return $.ajax({
     type: "post",
     url: "upload.php",
@@ -21,11 +19,21 @@ function dbUploadForm(data) {
   });
 }
 
-function updateImg(img) {
-  let src = img.src;
-  src.replace(/\?.*/g, "");
-  src += "?" + new Date().getTime()
-  img.src = src;
+async function updateImg() {
+  let result = await dbUpdateImg();
+  let src = `../img/profile/${result}?${new Date().getTime()}`;
+
+  $('#displayImg').attr('src', src);
+}
+
+function dbUpdateImg() {
+  return $.ajax({
+    type: "post",
+    url: "upload.php",
+    data: {
+      request: "get_display"
+    }
+  });
 }
 
 $(document).ready(e => {
