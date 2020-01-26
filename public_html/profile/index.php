@@ -13,6 +13,7 @@ $query = "
   SELECT `file_name`
   FROM `images`
   WHERE `user_code` = '{$_SESSION['user_code']}'
+  ORDER BY `uploaded` DESC
 ";
 
 $result = mysqli_query($conn, $query);
@@ -77,7 +78,6 @@ if ( $result ) {
     <form action="upload.php" enctype="multipart/form-data" id="uploadPicForm" class="d-none">
       <input type="hidden" name="request" value="upload">
       <input type="file" class="form-control d-none" name="file" id="file">
-      <!-- <input type="submit" class="btn btn-primary" name="submit" value="Upload"> -->
     </form>
   </div>
 </body>
