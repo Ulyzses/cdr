@@ -80,3 +80,57 @@ i {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+/* NAVBAR NOTIFICATIONS */
+.notify-drop {
+  width: 20rem;
+  padding: 0;
+}
+
+.notify-text {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: unset;
+}
+
+.notify-title {
+  font-weight: 900;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--lighter-grey);
+  margin: 0;
+}
+
+.notifications {
+  max-height: 75vh;
+  overflow: auto;
+}
+
+.notification {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--lighter-grey);
+}
+
+.notify-body {
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  max-height: 1.8rem;
+  overflow: hidden;
+}
+
+.notify-time {
+  margin-bottom: 0;
+  font-weight: 400;
+  color: grey;
+}
+
+.unread {
+  background-color: var(--lighter-grey);
+}
+
+.notifications > a:hover {
+  text-decoration: none;
+}
+
+.notification:hover {
+  background-color: var(--light-grey);
+}

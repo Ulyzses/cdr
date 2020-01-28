@@ -4,7 +4,8 @@ body {
   flex-direction: column;
 }
 
-.side {
+.side,
+.main {
   /* background-color: white; */
   padding: 2rem 1rem;
 }
@@ -19,7 +20,8 @@ img {
   filter: blur(2px);
 }
 
-.side-text {
+.side-text,
+.body-text {
   letter-spacing: 1px;
   font-size: 1rem;
 }
@@ -31,5 +33,28 @@ img {
 
 .side-details {
   text-transform: unset;
+  color: grey;
+}
+
+.main {
+  margin: 1rem 0 0 1rem;
+}
+
+.body-header {
+  border-bottom: 1px solid grey;
+}
+
+.body-div {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.body-div-header {
+  text-transform: capitalize;
+}
+
+.body-div-details {
+  text-transform: capitalize;
   color: grey;
 }

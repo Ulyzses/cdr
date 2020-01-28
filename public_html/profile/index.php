@@ -72,7 +72,22 @@ if ( $result ) {
           ?>
         </h2>
       </div>
+
+      <!-- Right Content -->
       <div class="col-lg-7 col-md-7 col-12 main">
+        <?php if ( $_SESSION['type'] == 1 ) : ?>
+          <h1 class="body-header">My Classes</h1>
+
+          <div class="body-div">
+            <h2 class="body-text body-div-header">
+              11-CV Del Rosario
+            </h2>
+            <h3 class="body-text body-div-details">
+              English
+            </h3>
+          </div>
+
+        <?php endif; ?>
       </div>
     </div>
     <form action="upload.php" enctype="multipart/form-data" id="uploadPicForm" class="d-none">

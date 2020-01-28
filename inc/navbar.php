@@ -1,3 +1,15 @@
+<?php
+
+// Load Notifications if user is logged in
+
+if ( isset($_SESSION['logged_in']) && $_SESSION['logged_in'] ) {
+  require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/notification.php");
+  
+  $notifications = getNotifications($conn);
+}
+
+?>
+
 <nav class="navbar navbar-dark bg-dark py-2 sticky-top">
   <a href="/cdr/public_html" class="navbar-brand">CDR</a>
 
@@ -31,7 +43,7 @@
 
       <!-- Classes for teachers only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
-        <li class="nav-item mr-0" title="Notifications">
+        <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/teacher" class="nav-link py-0 px-2">
             My Classes
           </a>
@@ -40,7 +52,7 @@
 
       <!-- Subjects for students only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
-        <li class="nav-item mr-0" title="Notifications">
+        <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/student" class="nav-link py-0 px-2">
             My Subjects
           </a>
@@ -48,15 +60,32 @@
       <?php endif; ?>
       
       <!-- Notifications -->
-      <li class="nav-item mr-0" title="Notifications">
-        <a href="" class="nav-link py-0 px-2">
+      <li class="nav-item dropdown mr-0 px-2" title="Notifications">
+        <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
           <i class="fas fa-bell icon"></i>
         </a>
+        <div class="dropdown-menu dropdown-menu-right position-absolute notify-drop">
+          <h3 class="notify-text notify-title">Notifications</h3>
+          <ul class="notifications">
+            <?php foreach($notifications as $notification) : ?>
+              <a href="<?php echo $notification['link'] ?>">
+                <li class="notification">
+                  <h4 class="notify-text notify-body">
+                    <?php echo $notification['message'] ?>
+                  </h4>
+                  <h5 class="notify-text notify-time">
+                    <?php echo timeAgo($notification['time']) ?> ago
+                  </h5>
+                </li>
+              </a>
+            <?php endforeach; ?>
+          </ul>
+        </div>
       </li>
 
       <!-- User -->
-      <li class="nav-item dropdown mr-0 px-2">
-        <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown" title="Profile">
+      <li class="nav-item dropdown mr-0 px-2" title="Profile">
+        <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
           <i class="fas fa-user icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right position-absolute">
