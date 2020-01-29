@@ -1,16 +1,10 @@
 <?php
 
-// if ( isset($_POST['request']) ) {
-//   require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
-//   switch($_POST['request']) {
-//     case 'add_score':
-//       notifyAddOutput($conn, $_POST['details']);
-//       break;
-//   }
-// }
+function notifyStudentScore($type, $details) {
+  global $conn;
 
-function notifyStudentScore($conn, $type, $details) {
   $formats = array(
     "add" => '%s, %s (%s) has added scores for %s.',
     "modify" => '%s, %s (%s) has changed your score for %s.',
@@ -95,7 +89,9 @@ function notifyStudentScore($conn, $type, $details) {
   if ( !$result ) die(mysqli_error($conn));
 }
 
-function getNotifications($conn) {
+function getNotifications() {
+  global $conn;
+
   $query = "
     SELECT
       `message`,
