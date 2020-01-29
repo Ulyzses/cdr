@@ -110,27 +110,4 @@ function getNotifications() {
   }
 }
 
-function timeAgo($timestamp) {
-  $diff = time() - $timestamp;
-
-  $min = 60;
-  $hour = 60 * 60;
-  $day = 60 * 60 * 24;
-  $week = 60 * 60 * 24 * 7;
-
-  if ( $diff < $min ) {
-    $timeAgo = $diff . " seconds";
-  } else if ( $diff < $hour ) {
-    $timeAgo = round($diff / $min) . " minutes";
-  } else if ( $diff < $day ) {
-    $timeAgo = round($diff / $hour) . " hours";
-  } else if ( $diff < $week ) {
-    $timeAgo = round($diff / $day) . " days";
-  } else {
-    $timeAgo = round($diff / $week) . " weeks";
-  }
-
-  return $timeAgo;
-}
-
 ?>
