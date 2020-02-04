@@ -7,39 +7,28 @@ $(document).ready(() => {
     }
   });
 
-  $('body').on('click', '.customAlert', removeAlert);
-
   $('#notification-drop').click(e => {
     e.preventDefault();
 
     displayNotifications();
   })
+
+  $('#read-notifications').click(e => {
+    e.preventDefault();
+
+    readAllNotifications();
+  })
+
+  $notifContainer.on('click', '.notification', function(e) {
+    readNotification($(this).data('id'));
+  });
 });
 
 var $notifContainer = $(".notifications");
 var notifications;
 
-function removeAlert() {
-  $('.alertBox, .alertMessage, .alertOkButton').hide(300, () => {
-    $('.customAlert').remove();
-  });
-}
-
-function customAlert(msg) {
-  $('body').append(`
-    <div class="customAlert">
-      <div class="col-lg-4 col-md-6 col-sm-8 col-9 alertBox">
-        <h4 class="alertMessage">${msg}</h4>
-        <button class="btn btn-primary alertOkButton" type="button" onclick="removeAlert()">OK</button>
-      </div>
-    </div>
-  `);
-}
-
 async function displayNotifications() {
-  $notifContainer.empty();
-
-  let result = await getNotifications();
+  let result = await dbGetNotifications();
 
   try {
     notifications = JSON.parse(result);
@@ -48,13 +37,18 @@ async function displayNotifications() {
     return;
   }
 
+  if ( notifications.length == 0 ) return
+
+  $notifContainer.empty();
+
   notifications.forEach(notification => {
     let $notifAnchor = $('<a>', {
       href: notification['link']
     }).appendTo($notifContainer);
 
     let $notification = ($('<li>', {
-      "class": "notification"
+      "class": "notification",
+      "data-id": notification['id']
     })).appendTo($notifAnchor);
 
     $notification.append($('<h4>', {
@@ -64,15 +58,52 @@ async function displayNotifications() {
       "class": "notify-text notify-time",
       text: `${timeAgo(notification['time'])} ago`
     }));
+
+    if ( !Number(notification['status']) ) {
+      $notification.addClass("unread");
+    }
   });
 }
 
-function getNotifications() {
+function dbGetNotifications() {
   return $.ajax({
     type: "post",
     url: "/cdr/public_html/bridge.php",
     data: {
       request: "get_notifications"
+    }
+  });
+}
+
+async function readNotification(id) {
+  let result = await dbReadNotification(id);
+
+  console.log(result);
+}
+
+function dbReadNotification(id) {
+  return $.ajax({
+    type: "post",
+    url: "/cdr/public_html/bridge.php",
+    data: {
+      request: "read_notification",
+      id: id
+    }
+  });
+}
+
+async function readAllNotifications() {
+  let result = await dbReadAllNotifications();
+
+  console.log(result);
+}
+
+function dbReadAllNotifications() {
+  return $.ajax({
+    type: "post",
+    url: "/cdr/public_html/bridge.php",
+    data: {
+      request: "read_all"
     }
   });
 }
