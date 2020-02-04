@@ -10,6 +10,7 @@ function notifyStudentScore($type, $details) {
     "modify" => '%s, %s (%s) has changed your score for %s.',
     "delete" => '%s, %s (%s) has deleted your score for %s.'
   );
+  print_r($details);
   $studentCode = $details['studentCode'];
   $teacherCode = $details['teacherCode'] ?? $_SESSION['user_code'];
   $activityCode = $details['activityCode'];
@@ -87,6 +88,37 @@ function notifyStudentScore($type, $details) {
 
   $result = mysqli_query($conn, $query);
   if ( !$result ) die(mysqli_error($conn));
+
+  // Get student email
+  $query = "
+    SELECT `user_email`
+    FROM `users`
+    WHERE `user_code` = '$studentCode'
+  ";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( $result ) {
+    if ( mysqli_num_rows($result) == 0 ) {
+      die("Email not found");
+    } else {
+      $email = mysqli_fetch_assoc($result)['user_email'];
+    }
+  } else {
+    die(mysqli_error($conn));
+  }
+
+  // Create the email
+  $subject = "CDR Notification";
+  $headers = array(
+    'From' => 'master@upiscdr.com',
+    'Reply-to' => 'master@upiscdr.com',
+    'X-Mailer' => 'PHP/' . phpversion()
+  );
+
+  mail($email, $subject, $message, $headers);
+
+  die("Mail successful");
 }
 
 function getNotifications() {
@@ -94,11 +126,14 @@ function getNotifications() {
 
   $query = "
     SELECT
+      `id`,
       `message`,
       `time`,
-      `link`
+      `link`,
+      `status`
     FROM `notifications`
     WHERE `receiver` = '{$_SESSION['user_code']}'
+    ORDER BY `time` DESC
   ";
 
   $result = mysqli_query($conn, $query);
@@ -108,6 +143,39 @@ function getNotifications() {
   } else {
     die(mysqli_error($conn));
   }
+}
+
+function readNotification($id) {
+  global $conn;
+
+  $query = "
+    UPDATE `notifications`
+    SET `status` = 1
+    WHERE `id` = $id
+  ";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( !$result ) die(mysqli_error($conn));
+
+  die("Successfully updated status");
+}
+
+function readAllNotifications() {
+  global $conn;
+
+  $query = "
+    UPDATE `notifications`
+    SET `status` = 1
+    WHERE `receiver` = '{$_SESSION['user_code']}'
+    AND `status` = 0
+  ";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( !$result ) die(mysqli_error($conn));
+
+  die("Successfully updated status");
 }
 
 ?>
