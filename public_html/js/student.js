@@ -85,7 +85,7 @@ function dbJoinClass(code) {
 
 $(document).ready(() => {
   // Switch active class
-  $('.subjects').on('click', 'li.subject:not(:last)', function() {
+  $('.subjects').on('click', 'li.subject', function() {
     $('.subjects').find('.active').removeClass('active');
     $(this).addClass('active');
 
