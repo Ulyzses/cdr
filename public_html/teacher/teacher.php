@@ -251,7 +251,7 @@ function addOutput($conn, $output) {
     "time" => time()
   );
 
-  notifyStudentScore($conn, "add", $notifDetails);
+  notifyStudentScore("add", $notifDetails);
 }
 
 // Modifies an existing output in the databse
@@ -280,7 +280,7 @@ function modifyOutput($conn, $output) {
     "time" => time()
   );
 
-  notifyStudentScore($conn, "modify", $notifDetails);
+  notifyStudentScore("modify", $notifDetails);
 
 }
 
@@ -308,6 +308,6 @@ function deleteOutput($conn, $output) {
     "time" => time()
   );
 
-  notifyStudentScore($conn, "delete", $notifDetails);
+  notifyStudentScore("delete", $notifDetails);
 }
  ?>
