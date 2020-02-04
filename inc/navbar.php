@@ -53,9 +53,18 @@
           <i class="fas fa-bell icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right position-absolute notify-drop">
-          <h3 class="notify-text notify-title">Notifications</h3>
+          <div class="notify-title d-flex">
+            <h3 class="notify-title-text">Notifications</h3>
+            <a href="#" class="ml-auto" id="read-notifications">Mark all as read</a>
+          </div>
           <ul class="notifications">
+            <li class="notification">
+              <h4 class="notify-text notify-body">No notifications yet</h4>
+            </li>
           </ul>
+          <div class="notify-title d-flex">
+            <a href="#" class="mx-auto">See all notifications</a>
+          </div>
         </div>
       </li>
 
