@@ -16,6 +16,10 @@ if ( isset($_POST['request']) ) {
       require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/notification.php");
       readAllNotifications();
       break;
+    case 'create_announcement':
+      require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/announcement.php");
+      createAnnouncement($_POST['details']);
+      break;
     default:
       die("Unknown request");
   }

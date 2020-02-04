@@ -74,7 +74,8 @@ if ( $result ) {
               <button class="nav-link" data-toggle="tab" value="new">&plus;</button>
             </li>
           </ul>
-            <button class="ml-auto new-activity" data-tooltip="tooltip" data-placement="left" title="Add Activity" data-toggle="modal" data-target="#addActivity">&plus;</button>
+            <button class="ml-auto new-announcement" data-tooltip="tooltip" data-placement="left" title="Create Announcement" data-toggle="modal" data-target="#newAnnouncement">&plus;</button>
+            <button class="new-activity" data-tooltip="tooltip" data-placement="left" title="Add Activity" data-toggle="modal" data-target="#addActivity">&plus;</button>
         </div>
         <div class="row position-relative flex-grow-1">
           <div class="main-content d-flex">
@@ -84,8 +85,34 @@ if ( $result ) {
           </div>
         </div>
 
+        <!-- New Annoucement Form -->
+        <div class="modal fade add-form" id="newAnnouncement" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Create Annoucnement</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="newAnnouncementForm">
+                <div class="modal-body">
+                  <select id="announcement_scope" class="custom-select form-control" required>
+                    <option value="current" selected>Current Class</option>
+                    <option value="all">All Classes</option>
+                  </select>
+                  <textarea class="form-control" id="announcement" rows="6" placeholder="New Announcement" required></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button name="new_submit" type="submit" class="btn btn-primary" id="newActivity">Announce</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
         <!-- Add Activity Form -->
-        <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade add-form" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

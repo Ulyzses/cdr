@@ -177,6 +177,7 @@ async function newActivity() {
   const score = Number($('#activity_score').val());
 
   const result = await dbNewActivity(name, type, score);
+
   try {
     let newActivity = JSON.parse(result);
     activities.push(newActivity);
@@ -198,6 +199,30 @@ function dbNewActivity(name, type, score) {
         name: name,
         type: type,
         score: score
+      }
+    }
+  });
+}
+
+async function newAnnouncement() {
+  const scope = $("#announcement_scope").val();
+  const message = $("#announcement").val();
+
+  const result = await dbNewAnnouncement(scope, message);
+
+  console.log(result);
+}
+
+function dbNewAnnouncement(scope, message) {
+  return $.ajax({
+    type: "post",
+    url: "/cdr/public_html/bridge.php",
+    data: {
+      request: 'create_announcement',
+      details: {
+        classCode: active,
+        scope: scope,
+        message: message
       }
     }
   });
@@ -307,6 +332,13 @@ $(document).ready(() => {
     e.preventDefault();
 
     newActivity();
+  })
+
+  // Announcements listener
+  $('#newAnnouncementForm').submit(e => {
+    e.preventDefault();
+
+    newAnnouncement();
   })
 
   // Modal open listener
