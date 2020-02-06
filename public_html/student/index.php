@@ -137,13 +137,13 @@ if ( $result ) {
                     <h2 class="announcement-title">
                       <?php echo $announcement['title'] ?>
                     </h2>
-                    <h3 class="announcement-subtitle">
-                      <?php echo "{$announcement['sender_last']}, {$announcement['sender_first']} on " . date('j F Y, H:i', $announcement['time']) ?>
-                    </h3>
-                    <p class="announcement-message">
-                      <?php echo $announcement['message'] ?>
-                    </p>
                   </a>
+                  <h3 class="announcement-subtitle">
+                    <?php echo "{$announcement['sender_last']}, {$announcement['sender_first']} on " . date('j F Y, H:i', $announcement['time']) ?>
+                  </h3>
+                  <p class="announcement-message">
+                    <?php echo $announcement['message'] ?>
+                  </p>
                 </li>
               <?php endforeach; ?>
             </ul>
