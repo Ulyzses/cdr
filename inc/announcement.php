@@ -8,6 +8,7 @@ function createAnnouncement($details) {
 
   $classCode = $details['classCode'];
   $scope = $details['scope'];
+  $title = $details['title'];
   $message = $details['message'];
   $time = $details['time'] ?? time();
   $teacherCode = $details['teacherCode'] ?? $_SESSION['user_code'];
@@ -18,12 +19,14 @@ function createAnnouncement($details) {
         `announcements` (
           `sender`,
           `class_code`,
+          `title`,
           `message`,
           `time`
         )
       VALUES (
         '$teacherCode',
         '$classCode',
+        '$title',
         '$message',
         $time
       )
@@ -50,6 +53,7 @@ function createAnnouncement($details) {
         $newDetails = array(
           'classCode' => $class,
           'scope' => 'current',
+          'title' => $title,
           'message' => $message,
           'time' => $time,
           'teacherCode' => $teacherCode

@@ -100,6 +100,7 @@ if ( $result ) {
                     <option value="current" selected>Current Class</option>
                     <option value="all">All Classes</option>
                   </select>
+                  <input type="text" id="announcement_title" class="form-control" placeholder="Announcement Title" required>
                   <textarea class="form-control" id="announcement" rows="6" placeholder="New Announcement" required></textarea>
                 </div>
                 <div class="modal-footer">

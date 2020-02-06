@@ -206,14 +206,17 @@ function dbNewActivity(name, type, score) {
 
 async function newAnnouncement() {
   const scope = $("#announcement_scope").val();
+  const title = $("#announcement_title").val();
   const message = $("#announcement").val();
 
-  const result = await dbNewAnnouncement(scope, message);
+  const result = await dbNewAnnouncement(scope, title, message);
+
+  $('#newAnnouncement').modal('hide');
 
   console.log(result);
 }
 
-function dbNewAnnouncement(scope, message) {
+function dbNewAnnouncement(scope, title, message) {
   return $.ajax({
     type: "post",
     url: "/cdr/public_html/bridge.php",
@@ -222,6 +225,7 @@ function dbNewAnnouncement(scope, message) {
       details: {
         classCode: active,
         scope: scope,
+        title: title,
         message: message
       }
     }
