@@ -72,3 +72,51 @@ body {
 #scoresCard tr {
   display: flex;
 }
+
+/* FOR ANNOUNCEMENTS */
+.announcement-container {
+  padding-right: 15px;
+}
+
+.announcements-title {
+  margin-top: 2rem;
+
+}
+
+.announcements-title,
+.announcement-title {
+  font-size: 1rem;
+  text-transform: unset;
+  letter-spacing: 1px;
+}
+
+.announcement {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.announcement:last-child {
+  border-bottom: none;
+}
+
+.announcement-title {
+  margin: 0;
+}
+
+.announcement-subtitle {
+  font-size: 0.75rem;
+  text-transform: unset;
+  letter-spacing: 1px;
+  color: grey;
+}
+
+.announcement-message {
+  text-align: justify;
+  margin: 1rem 0 0;
+  max-height: 4rem;
+  overflow: hidden;
+}
+
+.announcement-more {
+  text-align: right;
+}

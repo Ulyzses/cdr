@@ -30,10 +30,39 @@ $result = mysqli_query($conn, $query);
 
 if ( $result ) {
   $subjects = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  // die(print_r($subjects));
 } else {
   die(mysqli_error($conn));
 }
+
+mysqli_free_result($result);
+
+// Retrieve announcements
+$query = "
+  SELECT
+    `announcements`.`sender` AS sender,
+    `announcements`.`title` AS title,
+    `announcements`.`message` AS message,
+    `announcements`.`time` AS time,
+    `users`.`user_first_name` AS sender_first,
+    `users`.`user_last_name` AS sender_last
+  FROM `announcements`
+  JOIN `enrolments`
+    ON `announcements`.`class_code` = `enrolments`.`subject_code`
+  JOIN `users`
+    ON `announcements`.`sender` = `users`.`user_code`
+  WHERE `enrolments`.`student_code` = '{$_SESSION['user_code']}'
+  ORDER BY `announcements`.`time` DESC
+  LIMIT 3
+";
+
+$result = mysqli_query($conn, $query);
+
+if ( $result ) {
+  $announcements = mysqli_fetch_all($result, MYSQLI_ASSOC);
+} else {
+  die(mysqli_error($conn));
+}
+
  ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
   <link rel="stylesheet" href="/cdr/public_html/css/student.css">
@@ -43,7 +72,7 @@ if ( $result ) {
 <body>
   <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/navbar.php" ?>
   <div class="container-fluid position-relative flex-grow-1">
-    <div class="row">
+    <div class="row h-100">
       
       <!-- Sidebar -->
       <div class="col-lg-3 col-md-4 d-none d-md-flex flex-column sidebar position-fixed h-100">
@@ -98,6 +127,33 @@ if ( $result ) {
 
       <!-- Announcements -->
       <div class="col-lg-3 offset-lg-9 d-none d-lg-flex position-fixed h-100">
+        <div class="d-flex flex-column w-100 announcement-container">
+          <h1 class="announcements-title">Announcements</h1>
+          <?php if ( count($announcements) > 0 ) : ?>
+            <ul class="nav flex-column announcements">
+              <?php foreach($announcements as $announcement) : ?>
+                <li class="announcement w-100">
+                  <a href="#">
+                    <h2 class="announcement-title">
+                      <?php echo $announcement['title'] ?>
+                    </h2>
+                    <h3 class="announcement-subtitle">
+                      <?php echo "{$announcement['sender_last']}, {$announcement['sender_first']} on " . date('j F Y, H:i', $announcement['time']) ?>
+                    </h3>
+                    <p class="announcement-message">
+                      <?php echo $announcement['message'] ?>
+                    </p>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+            <a href="#"><p class="mt-2 announcement-more">Read more &rarr;</p></a>
+          <?php else : ?>
+            <p class="announcement-message">
+              No announcements yet
+            </p>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </div>

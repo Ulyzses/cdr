@@ -54,7 +54,7 @@ function createAnnouncement($details) {
           'time' => $time,
           'teacherCode' => $teacherCode
         );
-        var_dump($newDetails);
+        
         createAnnouncement($newDetails);
       }
     } else {
