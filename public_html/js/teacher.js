@@ -150,20 +150,25 @@ function loadBody(filter = "all") {
   })
 }
 
-function addColumn(activity) {
+function addColumn(activity, scores) {
   $headRow.append($("<th>", {
     text: `${activity.activity_name} (${activity.max_score})`,
     "data-code": activity.activity_code
   }));
 
-  $rows.forEach(row => {
-    row.append($("<td>", {
+  $rows.forEach((row, index) => {
+    let cell = $("<td>", {
       "class": "cell",
+      text: scores ? scores[index] : "",
       contenteditable: true,
       focusout: function() {
         updateScore($(this), row.data('code'), activity.activity_code);
       }
-    }));
+    });
+
+    row.append(cell);
+
+    if ( scores ) updateScore(cell, row.data('code'), activity.activity_code);
   });
 }
 
@@ -175,16 +180,24 @@ async function newActivity() {
   const name = $('#activity_name').val();
   const type = $('#activity_type').val();
   const score = Number($('#activity_score').val());
+  const scores = $('#scores').val().split(/\n/).slice(0, -1);
+  const hasScores = scores.length == students.length;
+  let result;
 
-  const result = await dbNewActivity(name, type, score);
+  if ( scores.length == 0 || hasScores ) {
+    result = await dbNewActivity(name, type, score);
+  } else {
+    console.error("Number of students do not match");
+    return;
+  }
 
   try {
     let newActivity = JSON.parse(result);
     activities.push(newActivity);
-    addColumn(newActivity);
+    addColumn(newActivity, hasScores ? scores : null);
     $('#addActivity').modal('hide');
   } catch (e) {
-    console.error(result);
+    console.error(e, result);
   }
 }
 

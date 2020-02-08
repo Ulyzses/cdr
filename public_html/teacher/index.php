@@ -144,6 +144,7 @@ if ( $result ) {
                     <option value="project">Project</option>
                   </select>
                   <input type="number" id="activity_score" class="form-control" placeholder="Max Score" required>
+                  <textarea id="scores" class="form-control" rows="5" placeholder="MS Excel data (Optional)"></textarea>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
