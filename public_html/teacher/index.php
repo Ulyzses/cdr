@@ -9,7 +9,16 @@ if ( !(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] && isset($_SESSIO
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
 // Get classes
-$query = "SELECT `class_subject`, `class_code`, `class_level`, `class_section`, `class_room` FROM `classes` WHERE `class_teacher` = '{$_SESSION['user_code']}'";
+$query = "
+  SELECT
+    `class_subject`,
+    `class_code`,
+    `class_level`,
+    `class_section`,
+    `class_room`
+  FROM `classes`
+  WHERE `class_teacher` = '{$_SESSION['user_code']}'
+";
 
 $result = mysqli_query($conn, $query);
 
@@ -90,7 +99,8 @@ if ( $result ) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Create Annoucnement</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Create Annoucnement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -105,7 +115,7 @@ if ( $result ) {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button name="new_submit" type="submit" class="btn btn-primary" id="newActivity">Announce</button>
+                  <button name="new_submit" type="submit" class="btn btn-primary" id="newAnnounce">Announce</button>
                 </div>
               </form>
             </div>
@@ -133,7 +143,7 @@ if ( $result ) {
                     <option value="quiz">Quiz</option>
                     <option value="project">Project</option>
                   </select>
-                <input type="number" id="activity_score" class="form-control" placeholder="Max Score" required>
+                  <input type="number" id="activity_score" class="form-control" placeholder="Max Score" required>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
