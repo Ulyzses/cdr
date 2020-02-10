@@ -378,4 +378,7 @@ $(document).ready(() => {
       moveFocus($(this), e.which);
     }
   });
+
+  // Select first class
+  $('li.kurasu:first-child').click();
 });
