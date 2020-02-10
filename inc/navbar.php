@@ -33,7 +33,7 @@
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
         <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/teacher" class="nav-link py-0 px-2">
-            My Classes
+            <i class="fas fa-book icon"></i>
           </a>
         </li>
       <?php endif; ?>
@@ -42,7 +42,7 @@
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 2 ) : ?>
         <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/student" class="nav-link py-0 px-2">
-            My Subjects
+            <i class="fas fa-book icon"></i>
           </a>
         </li>
       <?php endif; ?>
