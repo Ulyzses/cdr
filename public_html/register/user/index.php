@@ -60,13 +60,11 @@ if ( isset($_POST['first']) ) {
   $query = "INSERT INTO
     `hashed`
     (
-      `user_name`,
       `user_key`,
       `user_type`
     )
     VALUES
     (
-      '{$_SESSION['reg']['username']}',
       '{$_SESSION['reg']['hashed']}',
       {$_SESSION['reg']['type']}
     )
