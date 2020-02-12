@@ -24,7 +24,7 @@
       
       <!-- Announcements -->
       <li class="navbar-item mr-0" title="Announcements">
-        <a href="#" class="nav-link py-0 px-2">
+        <a href="/cdr/public_html/announcements" class="nav-link py-0 px-2">
           <i class="fas fa-bullhorn icon"></i>
         </a>
       </li>
@@ -94,7 +94,7 @@
   </div>
   <div class="collapse navbar-collapse d-md-none px-4" id="smallScreen">
     <ul class="navbar-nav">
-      <li class="navbar-item"><a href="#" class="nav-link">Announcements</a></li>
+      <li class="navbar-item"><a href="/cdr/public_html/announcements" class="nav-link">Announcements</a></li>
       <li class="navbar-item"><a href="#" class="nav-link">Notifications</a></li>
           <div class="dropdown-divider"></div>
       <li class="navbar-item"><a href="/cdr/public_html/profile" class="nav-link">My Profile</a></li>

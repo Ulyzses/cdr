@@ -1,0 +1,33 @@
+body {
+  height: 100%;
+}
+
+.title {
+  text-transform: capitalize;
+  letter-spacing: unset;
+  font-size: 3rem;
+}
+
+.header {
+  text-transform: capitalize;
+  letter-spacing: unset;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 2rem 0 0;
+}
+
+.subheader {
+  text-transform: capitalize;
+  letter-spacing: unset;
+  font-size: 1rem;
+  color: grey;
+}
+
+.content {
+  margin: 2rem 0;
+  text-align: justify;
+}
+
+.announcement:not(:last-child) {
+  border-bottom: 1px solid grey;
+}
