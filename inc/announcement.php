@@ -2,6 +2,36 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
+function retrieveAnnouncements() {
+  global $conn;
+
+  $query = "
+    SELECT
+      `announcements`.`sender` AS sender,
+      `announcements`.`title` AS title,
+      `announcements`.`message` AS message,
+      `announcements`.`time` AS time,
+      `users`.`user_first_name` AS sender_first,
+      `users`.`user_last_name` AS sender_last
+    FROM `announcements`
+    JOIN `enrolments`
+      ON `announcements`.`class_code` = `enrolments`.`subject_code`
+    JOIN `users`
+      ON `announcements`.`sender` = `users`.`user_code`
+    WHERE `enrolments`.`student_code` = '{$_SESSION['user_code']}'
+    ORDER BY `announcements`.`time` DESC
+    LIMIT 3
+  ";
+
+  $result = mysqli_query($conn, $query);
+
+  if ( $result ) {
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+  } else {
+    die(mysqli_error($conn));
+  }
+}
+
 // Creates a new annoucnement in the database
 function createAnnouncement($details) {
   global $conn;

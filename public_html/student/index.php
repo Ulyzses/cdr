@@ -37,31 +37,9 @@ if ( $result ) {
 mysqli_free_result($result);
 
 // Retrieve announcements
-$query = "
-  SELECT
-    `announcements`.`sender` AS sender,
-    `announcements`.`title` AS title,
-    `announcements`.`message` AS message,
-    `announcements`.`time` AS time,
-    `users`.`user_first_name` AS sender_first,
-    `users`.`user_last_name` AS sender_last
-  FROM `announcements`
-  JOIN `enrolments`
-    ON `announcements`.`class_code` = `enrolments`.`subject_code`
-  JOIN `users`
-    ON `announcements`.`sender` = `users`.`user_code`
-  WHERE `enrolments`.`student_code` = '{$_SESSION['user_code']}'
-  ORDER BY `announcements`.`time` DESC
-  LIMIT 3
-";
+require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/announcement.php");
 
-$result = mysqli_query($conn, $query);
-
-if ( $result ) {
-  $announcements = mysqli_fetch_all($result, MYSQLI_ASSOC);
-} else {
-  die(mysqli_error($conn));
-}
+$announcements = retrieveAnnouncements();
 
  ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
