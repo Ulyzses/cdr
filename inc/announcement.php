@@ -41,7 +41,7 @@ function createAnnouncement($details) {
   $title = $details['title'];
   $message = $details['message'];
   $time = $details['time'] ?? time();
-  $teacherCode = $details['teacherCode'] ?? $_SESSION['user_code'];
+  $senderCode = $details['senderCode'] ?? $_SESSION['user_code'];
 
   if ( $scope == "current" ) {
     $query = "
@@ -54,7 +54,7 @@ function createAnnouncement($details) {
           `time`
         )
       VALUES (
-        '$teacherCode',
+        '$senderCode',
         '$classCode',
         '$title',
         '$message',
@@ -73,7 +73,7 @@ function createAnnouncement($details) {
     $query = "
       SELECT `class_code`
       FROM `classes`
-      WHERE `class_teacher` = '$teacherCode'
+      WHERE `class_teacher` = '$senderCode'
     ";
 
     $result = mysqli_query($conn, $query);
@@ -86,7 +86,7 @@ function createAnnouncement($details) {
           'title' => $title,
           'message' => $message,
           'time' => $time,
-          'teacherCode' => $teacherCode
+          'senderCode' => $senderCode
         );
         
         createAnnouncement($newDetails);
@@ -94,7 +94,28 @@ function createAnnouncement($details) {
     } else {
       die("No classes found");
     }
+  } else if ( $scope == "global") {
+    // Get all classes
 
+    $query = "SELECT `class_code` FROM `classes`";
+    $result = mysqli_query($conn, $query);
+
+    if ( mysqli_num_rows($result) > 0 ) {
+      while ( $class = mysqli_fetch_row($result)[0]) {
+        $newDetails = array(
+          'classCode' => $class,
+          'scope' => 'current',
+          'title' => $title,
+          'message' => $message,
+          'time' => $time,
+          'senderCode' => $senderCode
+        );
+        
+        createAnnouncement($newDetails);
+      }
+    } else {
+      die("No classes found");
+    }
   } else {
     die("Unknown scope");
   }
