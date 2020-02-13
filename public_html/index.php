@@ -8,6 +8,10 @@ if ( !(isset($_SESSION['logged_in']) && $_SESSION['logged_in']) ) {
   exit();
 }
 
+if ( $_SESSION['type'] == 0 ) {
+  header("Location: ./admin/");
+}
+
 if ( $_SESSION['type'] == 1 ) {
   header("Location: ./teacher/");
 }

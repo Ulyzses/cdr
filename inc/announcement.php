@@ -2,11 +2,11 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
 
-function retrieveAnnouncements() {
+function retrieveAnnouncements($limit = 0) {
   global $conn;
 
   $query = "
-    SELECT
+    ((SELECT
       `announcements`.`sender` AS sender,
       `announcements`.`title` AS title,
       `announcements`.`message` AS message,
@@ -18,10 +18,23 @@ function retrieveAnnouncements() {
       ON `announcements`.`class_code` = `enrolments`.`subject_code`
     JOIN `users`
       ON `announcements`.`sender` = `users`.`user_code`
-    WHERE `enrolments`.`student_code` = '{$_SESSION['user_code']}'
-    ORDER BY `announcements`.`time` DESC
-    LIMIT 3
+    WHERE `enrolments`.`student_code` = '{$_SESSION['user_code']}')
+    UNION
+    (SELECT
+      `announcements`.`sender` AS sender,
+      `announcements`.`title` AS title,
+      `announcements`.`message` AS message,
+      `announcements`.`time` AS time,
+      `users`.`user_first_name` AS sender_first,
+      `users`.`user_last_name` AS sender_last
+    FROM `announcements`
+    JOIN `users`
+      ON `announcements`.`sender` = `users`.`user_code`
+    WHERE `announcements`.`class_code` = 'global'))
+    ORDER BY `time` DESC
   ";
+
+  if ( $limit != 0 ) $query .= "\nLIMIT $limit";
 
   $result = mysqli_query($conn, $query);
 
@@ -36,7 +49,7 @@ function retrieveAnnouncements() {
 function createAnnouncement($details) {
   global $conn;
 
-  $classCode = $details['classCode'];
+  $classCode = $details['classCode'] ?? "";
   $scope = $details['scope'];
   $title = $details['title'];
   $message = $details['message'];
@@ -76,28 +89,6 @@ function createAnnouncement($details) {
       WHERE `class_teacher` = '$senderCode'
     ";
 
-    $result = mysqli_query($conn, $query);
-
-    if ( mysqli_num_rows($result) > 0 ) {
-      while ( $class = mysqli_fetch_row($result)[0]) {
-        $newDetails = array(
-          'classCode' => $class,
-          'scope' => 'current',
-          'title' => $title,
-          'message' => $message,
-          'time' => $time,
-          'senderCode' => $senderCode
-        );
-        
-        createAnnouncement($newDetails);
-      }
-    } else {
-      die("No classes found");
-    }
-  } else if ( $scope == "global") {
-    // Get all classes
-
-    $query = "SELECT `class_code` FROM `classes`";
     $result = mysqli_query($conn, $query);
 
     if ( mysqli_num_rows($result) > 0 ) {

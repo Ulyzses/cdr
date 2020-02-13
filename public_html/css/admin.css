@@ -1,0 +1,29 @@
+body {
+  height: 100%;
+}
+
+.title {
+  margin-top: 2rem;
+  text-transform: unset;
+  letter-spacing: unset;
+  font-size: 3rem;
+}
+
+#username {
+  color: grey;
+}
+
+.header {
+  margin-bottom: 1rem;
+  text-transform: unset;
+  letter-spacing: unset;
+  font-size: 2rem;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.form-control:last-child {
+  margin-bottom: 0;
+}

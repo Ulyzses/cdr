@@ -39,7 +39,7 @@ mysqli_free_result($result);
 // Retrieve announcements
 require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/announcement.php");
 
-$announcements = retrieveAnnouncements();
+$announcements = retrieveAnnouncements(3);
 
  ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
