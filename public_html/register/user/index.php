@@ -14,6 +14,16 @@ if ( isset($_POST['first']) ) {
   $_SESSION['reg']['username'] = trim($_POST['username']);
 
   $stage = 1;
+  // Check if username is valid
+  if ( !ctype_alnum($_SESSION['reg']['username']) ) {
+    $error = "Username can only contain letters or numbers";
+  }
+
+  // Check if password is valid
+  if ( !ctype_alnum($_POST['password']) ) {
+    $error = "Password can only contain letters or numbers";
+  }
+
   // Check if account type is chosen
   if ( isset($_POST['type']) ) {
     $_SESSION['reg']['type'] = intval($_POST['type']);
