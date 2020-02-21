@@ -30,7 +30,8 @@ if ( isset($_POST['submit']) ) {
 
       mysqli_free_result($result);
 
-      getUserInfo($conn, $_SESSION['id']);
+      getUserInfo($_SESSION['id']);
+      trackLogin($_SESSION['user_code'], time());
       
       header("Location: /cdr/public_html");
     } else {
@@ -41,7 +42,9 @@ if ( isset($_POST['submit']) ) {
   }
 }
 
-function getUserInfo($conn, $id) {
+function getUserInfo($id) {
+  global $conn;
+
   $query = "SELECT user_name, user_code, user_email, user_first_name, user_middle_name, user_last_name FROM `users` WHERE `user_id` = $id";
   $result = mysqli_query($conn, $query);
 
@@ -59,6 +62,25 @@ function getUserInfo($conn, $id) {
   } else {
     die(mysqli_error($conn));
   }
+}
+
+function trackLogin($id, $time) {
+  global $conn;
+
+  $query = "
+    INSERT INTO
+      `login` (
+        `user_code`,
+        `time`
+      )
+    VALUES (
+      '$id',
+      $time
+    )
+  ";
+
+  $result = mysqli_query($conn, $query);
+  if ( !$result ) die(mysqli_error($conn));
 }
 
  ?>
