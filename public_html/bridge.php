@@ -20,8 +20,48 @@ if ( isset($_POST['request']) ) {
       require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/announcement.php");
       createAnnouncement($_POST['details']);
       break;
+    case 'check_password':
+      checkPassword($_POST['password']);
+      break;
+    case 'run_query':
+      runQuery($_POST['query']);
+      break;
     default:
       die("Unknown request");
+  }
+}
+
+function runQuery($query) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
+
+  $result = mysqli_query($conn, $query);
+  if ( $result ) {
+    die("Query executed successfully.");
+  } else {
+    die(mysqli_error($conn));
+  }
+}
+
+function checkPassword($password) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/db.php");
+
+  $username = $_SESSION['username'];
+  $password = trim($password);
+
+  $key = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/config.ini")['hash_key'];
+  $hashed = hash_hmac("sha256", $username, $password);
+
+  $query = "SELECT * FROM `hashed` WHERE `user_key` = '$hashed'";
+  $result = mysqli_query($conn, $query);
+
+  if ( $result ) {
+    if ( mysqli_num_rows($result) == 1 ) {
+      die(true);
+    } else {
+      die(false);
+    }
+  } else {
+    die(mysqli_error($conn));
   }
 }
 

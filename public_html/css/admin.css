@@ -27,3 +27,7 @@ body {
 .form-control:last-child {
   margin-bottom: 0;
 }
+
+button {
+  margin-bottom: 2rem;
+}
