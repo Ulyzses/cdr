@@ -107,6 +107,9 @@ function trackLogin($id, $time) {
               <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
               <input type="password" name="password" class="form-control" placeholder="Password" required>
               <button name="submit" class="btn btn-md btn-primary btn-block text-uppercase mt-4" type="submit">Login</button>
+              <p id="forgot">
+                <a href="/cdr/public_html/account_recovery">Forgot my password</a>
+              </p>
             </form>
           </div>
         </div>
