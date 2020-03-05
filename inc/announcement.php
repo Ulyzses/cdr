@@ -51,8 +51,8 @@ function createAnnouncement($details) {
 
   $classCode = $details['classCode'] ?? "";
   $scope = $details['scope'];
-  $title = mysqli_real_escape_string($details['title']);
-  $message = mysqli_real_escape_string($details['message']);
+  $title = mysqli_real_escape_string($conn, $details['title']);
+  $message = mysqli_real_escape_string($conn, $details['message']);
   $time = $details['time'] ?? time();
   $senderCode = $details['senderCode'] ?? $_SESSION['user_code'];
 
