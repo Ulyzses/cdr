@@ -15,7 +15,9 @@ session_start();
         <h1 class="title">About</h1>
         <p class="content">Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Proin eget tortor risus. Donec rutrum congue leo eget malesuada. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
         <h2 class="header">Computerised Data Registry</h2>
-        <p class="content">Quisque velit nisi, pretium ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur aliquet quam id dui posuere blandit. Nulla quis lorem ut libero malesuada feugiat.</p>
+        <p class="content">Computerised Data Registry is a custom-made website designed to allow score updates between teachers and students. It acts as a link between the two such that as soon as teachers finish checking activities, they may upload the scores on the site and students will be able to see their scores in real time, provided that they have access to the internet. It is provided as an alternative to manually distributing checked activities which is sometimes only done when nearing the end of a grading period.
+        </p>
+        <p class="content">This website is developed for the purposes of the thesis in the Applied Sciences and Engineering track of Batch 2021.</p>
         <h2 class="header">Cramming Dauntless Researchers</h2>
         <p class="content">Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
         <p class="content">Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Sed porttitor lectus nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur aliquet quam id dui posuere blandit.</p>
