@@ -83,8 +83,7 @@ if ( $result ) {
               <button class="nav-link" data-toggle="tab" value="new">&plus;</button>
             </li>
           </ul>
-            <button class="ml-auto new-announcement" data-tooltip="tooltip" data-placement="left" title="Create Announcement" data-toggle="modal" data-target="#newAnnouncement">&plus;</button>
-            <button class="new-activity" data-tooltip="tooltip" data-placement="left" title="Add Activity" data-toggle="modal" data-target="#addActivity">&plus;</button>
+          <button class="ml-auto new-activity" data-tooltip="tooltip" data-placement="left" title="Add Activity" data-toggle="modal" data-target="#addActivity">&plus;</button>
         </div>
         <div class="row position-relative flex-grow-1">
           <div class="main-content d-flex">

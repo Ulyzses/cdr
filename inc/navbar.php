@@ -21,20 +21,23 @@
 
 
       <?php endif; ?>
-      
-      <!-- Announcements -->
-      <li class="navbar-item mr-0" title="Announcements">
-        <a href="/cdr/public_html/announcements" class="nav-link py-0 px-2">
-          <i class="fas fa-bullhorn icon"></i>
-        </a>
-      </li>
 
-      <!-- Classes for teachers only -->
+      <!-- Classes and Announcement Dropdown for teachers only -->
       <?php if ( isset($_SESSION['type']) && $_SESSION['type'] == 1 ) : ?>
         <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/teacher" class="nav-link py-0 px-2">
             <i class="fas fa-book icon"></i>
           </a>
+        </li>
+
+        <li class="nav-item dropdown mr-0 px-2" title="Profile">
+          <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
+            <i class="fas fa-bullhorn icon"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right position-absolute">
+            <button class="dropdown-item new-announcement" data-toggle="modal" data-target="#newAnnouncement">Create Announcement</button>
+            <a href="/cdr/public_html/announcements" class="dropdown-item">View All Announcements</a>
+          </div>
         </li>
       <?php endif; ?>
 
@@ -43,6 +46,12 @@
         <li class="nav-item mr-0" title="Classes">
           <a href="/cdr/public_html/student" class="nav-link py-0 px-2">
             <i class="fas fa-book icon"></i>
+          </a>
+        </li>
+        
+        <li class="navbar-item mr-0" title="Announcements">
+          <a href="/cdr/public_html/announcements" class="nav-link py-0 px-2">
+            <i class="fas fa-bullhorn icon"></i>
           </a>
         </li>
       <?php endif; ?>
