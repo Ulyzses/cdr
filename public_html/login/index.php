@@ -28,9 +28,11 @@ if ( isset($_POST['submit']) ) {
  ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
   <link rel="stylesheet" href="../css/login.css">
+  <title>Login | UPIS CDR</title>
 </head>
 <body>
-  <div class="container h-100">
+  <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/navbar.php" ?>
+  <div class="container d-flex flex-column flex-grow-1">
     <div class="row h-100 align-items-center">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-login">

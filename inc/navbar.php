@@ -56,42 +56,65 @@
         </li>
       <?php endif; ?>
       
-      <!-- Notifications -->
-      <li class="nav-item dropdown mr-0 px-2" title="Notifications">
-        <a href="#" class="nav-link dropdown-toggle py-0" id="notification-drop" data-toggle="dropdown">
-          <i class="fas fa-bell icon"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right position-absolute notify-drop">
-          <div class="notify-title d-flex">
-            <h3 class="notify-title-text">Notifications</h3>
-            <a href="#" class="ml-auto" id="read-notifications">Mark all as read</a>
-          </div>
-          <ul class="notifications">
-            <li class="notification">
-              <h4 class="notify-text notify-body">No notifications yet</h4>
-            </li>
-          </ul>
-          <div class="notify-title d-flex">
-            <a href="#" class="mx-auto">See all notifications</a>
-          </div>
-        </div>
-      </li>
+      <?php if ( isset($_SESSION['logged_in']) && $_SESSION['logged_in'] ) : ?>
 
-      <!-- User -->
-      <li class="nav-item dropdown mr-0 px-2" title="Profile">
-        <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
-          <i class="fas fa-user icon"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right position-absolute">
-          <a href="/cdr/public_html/profile" class="dropdown-item">My Profile</a>
-          <a href="#" class="dropdown-item">Settings</a>
-          <div class="dropdown-divider"></div>
-          <a href="/cdr/public_html/about" class="dropdown-item">About</a>
-          <a href="#" class="dropdown-item">Help Center</a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item" id="logout">Log Out</a>
-        </div>
-      </li>
+      <!-- Notifications -->
+        <li class="nav-item dropdown mr-0 px-2" title="Notifications">
+          <a href="#" class="nav-link dropdown-toggle py-0" id="notification-drop" data-toggle="dropdown">
+            <i class="fas fa-bell icon"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right position-absolute notify-drop">
+            <div class="notify-title d-flex">
+              <h3 class="notify-title-text">Notifications</h3>
+              <a href="#" class="ml-auto" id="read-notifications">Mark all as read</a>
+            </div>
+            <ul class="notifications">
+              <li class="notification">
+                <h4 class="notify-text notify-body">No notifications yet</h4>
+              </li>
+            </ul>
+            <div class="notify-title d-flex">
+              <a href="#" class="mx-auto">See all notifications</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- User -->
+        <li class="nav-item dropdown mr-0 px-2" title="Profile">
+          <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
+            <i class="fas fa-user icon"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right position-absolute">
+            <a href="/cdr/public_html/profile" class="dropdown-item">My Profile</a>
+            <a href="#" class="dropdown-item">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a href="/cdr/public_html/about" class="dropdown-item">About</a>
+            <a href="#" class="dropdown-item">Help Center</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item" id="logout">Log Out</a>
+          </div>
+        </li>
+
+      <?php else : ?>
+        <li class="navbar-item mr-0" title="About">
+          <a href="/cdr/public_html/about" class="nav-link py-0 px-2">
+            <i class="fas fa-info-circle icon"></i>
+          </a>
+        </li>
+        <li class="navbar-item mr-0" title="Help Center">
+          <a href="/cdr/public_html/help" class="nav-link py-0 px-2">
+            <i class="fas fa-question-circle icon"></i>
+          </a>
+        </li>
+        
+        <?php if ( basename(getcwd()) != "login" ) : ?>
+          <li class="navbar-item mr-0" title="Login">
+            <a href="/cdr/public_html/login" class="nav-link py-0 px-2">
+              <i class="fas fa-sign-in-alt icon"></i>
+            </a>
+          </li>
+        <?php endif;?>
+      <?php endif; ?>
     </ul>
   </div>
 
