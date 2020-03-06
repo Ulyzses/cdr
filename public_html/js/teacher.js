@@ -147,7 +147,9 @@ function loadBody(filter = "all") {
         }
       }));
     });
-  })
+  });
+  
+  bindArrows();
 }
 
 function addColumn(activity, scores) {
@@ -327,6 +329,15 @@ function dbUpdateScore(request, output) {
   });
 }
 
+function bindArrows() {
+  $tbody.on('keydown', '.cell', function(e) {
+    if ( e.which <= 40 && e.which >= 37 ) {
+      e.preventDefault();
+      moveFocus($(this), e.which);
+    }
+  });
+}
+
 /* EVENT LISTENERS */
 
 $(document).ready(() => {
@@ -372,12 +383,7 @@ $(document).ready(() => {
   });
 
   // Arrow key presses
-  $tbody.on('keydown', '.cell', function(e) {
-    if ( e.which <= 40 && e.which >= 37 ) {
-      e.preventDefault();
-      moveFocus($(this), e.which);
-    }
-  });
+  bindArrows();
 
   // Select first class
   $('li.kurasu:first-child').click();
