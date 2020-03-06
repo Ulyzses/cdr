@@ -142,6 +142,7 @@ function loadBody(filter = "all") {
         "class": "cell",
         contenteditable: true,
         text: ( out ) ? out.score : "",
+        "data-curr" : ( out ) ? out.score : "",
         focusout: function() {
           updateScore($(this), studentCode, activityCode);
         }
@@ -282,6 +283,7 @@ async function updateScore(cell, studentCode, activityCode) {
     // Check for invalid inputs
     if ( isNaN(cell.text()) ) {
       console.error("Invalid input");
+      cell.text(cell.data("curr"));
       return
     }
 
