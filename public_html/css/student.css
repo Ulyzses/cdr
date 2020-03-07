@@ -73,6 +73,15 @@ body {
   display: flex;
 }
 
+.card-title > i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.filter-label > div {
+  border-radius: 0.5rem;
+}
+
 /* FOR ANNOUNCEMENTS */
 .announcement-container {
   padding-right: 15px;

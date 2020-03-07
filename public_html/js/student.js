@@ -1,11 +1,13 @@
 'use strict'
 
 var active;
+var filter = ['seatwork', 'homework', 'quiz', 'project'];
 var scores = [];
 
+var $title = $("#title")
 var $scores = $("#scoresBody");
 
-async function loadScores(subject) {
+async function loadScores(subject = active, _filter = filter) {
   const data = await dbLoadScores(subject);
 
   try {
@@ -16,9 +18,18 @@ async function loadScores(subject) {
     return
   }
 
-  const filteredScores = scores.filter(score => score.class_code == subject); 
+  if ( _filter.length == 4 ) {
+    $title.text("All Activities");
+  } else if ( _filter.length == 0 ) {
+    $title.text("None Selected");
+  } else {
+    $title.text("Filtered Activities");
+  }
 
-  // console.log(score.activity_code);
+  const filteredScores = scores.filter(score => {
+    return score.class_code == subject &&
+      _filter.includes(score.activity_type);
+  });
 
   console.log(filteredScores);
 
@@ -84,13 +95,18 @@ function dbJoinClass(code) {
 }
 
 $(document).ready(() => {
+  // Initialise the tooltip
+  $('[data-tooltip="tooltip"]').tooltip({
+    trigger: "hover"
+  });
+
   // Switch active class
   $('.subjects').on('click', 'li.subject', function() {
     $('.subjects').find('.active').removeClass('active');
     $(this).addClass('active');
 
     active = $(this).data('code');
-    loadScores(active);
+    loadScores();
   })
 
   // Join Class
@@ -104,4 +120,22 @@ $(document).ready(() => {
 
   // Select first class
   $('li.subject:first-child').click();
+
+  // Filter checkbox toggle
+  $('.filter-label').click(function() {
+    $(this).children(":first").toggleClass('alert-dark alert-light');
+  });
+
+  // Filter
+  $('#filterForm').submit(e => {
+    e.preventDefault();
+
+    filter = $('.filter-checkbox:checkbox:checked').map(function() {
+      return $(this).val();
+    }).get();
+
+    loadScores(active);
+
+    $("#filter").modal('toggle');
+  });
 });

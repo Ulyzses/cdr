@@ -79,15 +79,15 @@ $announcements = retrieveAnnouncements(3);
             </div>
           </div>
         </form>
-        <!-- <li class="subject" href="/cdr/student/join"> -->
-          <!-- <h3 class="title my-0">Join Class</h3> -->
-        <!-- </li> -->
       </div>
 
       <!-- Content -->
       <div class="col-lg-6 col-md-8 offset-lg-3 offset-md-4 flex-sm-column d-flex position-relative content">
         <div class="main-card">
-          <h1 class="card-title">All</h1>
+          <h1 class="d-flex align-items-center card-title">
+            <span id="title">All</span>
+            <i class="fas fa-filter ml-auto" data-tooltip="tooltip" data-placement="left" title="Filter" data-toggle="modal" data-target="#filter"></i>
+          </h1>
           <table class="table table-striped table-sm w-100" id="scoresCard">
             <thead>
               <tr>
@@ -100,6 +100,47 @@ $announcements = retrieveAnnouncements(3);
             <tbody id="scoresBody">
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Filter Form -->
+      <div class="modal fade add-form" id="filter" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Filter Activities</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="filterForm">
+              <div class="modal-body">
+                <input class="d-none filter-checkbox" type="checkbox" value="seatwork" id="filter1" checked>
+                <label class="filter-label" for="filter1">
+                  <div class="alert alert-dark">Seatworks</div>
+                </label>
+                
+                <input class="d-none filter-checkbox" type="checkbox" value="homework" id="filter2" checked>
+                <label class="filter-label" for="filter2">
+                  <div class="alert alert-dark">Homework</div>
+                </label>
+                
+                <input class="d-none filter-checkbox" type="checkbox" value="quiz" id="filter3" checked>
+                <label class="filter-label" for="filter3">
+                  <div class="alert alert-dark">Quizzes</div>
+                </label>
+
+                <input class="d-none filter-checkbox" type="checkbox" value="project" id="filter4" checked>
+                <label class="filter-label" for="filter4">
+                  <div class="alert alert-dark">Projects</div>
+                </label>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button name="filter_submit" type="submit" class="btn btn-primary" id="filterSubmit">Apply Filter</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
