@@ -48,14 +48,6 @@ var $tbody = $("<tbody>").appendTo($table);
 var $headRow = $("<tr>").appendTo($thead);
 var $rows;
 
-// var $addButton = $("<button>", {
-//   type: "button",
-//   "class": "add-button",
-//   "data-toggle": "modal",
-//   "data-target": "#addActivity",
-//   text: "Add Activity"
-// });
-
 /* FUNCTIONS */
 
 // Get the corresponding output object
@@ -331,6 +323,23 @@ function dbUpdateScore(request, output) {
   });
 }
 
+async function editActivity(code) {
+  let result = await dbEditActivity(code);
+
+  console.log(result);
+}
+
+function dbEditActivity(code) {
+  return $.ajax({
+    type: "post",
+    url: "teacher.php",
+    data: {
+      request: "delete_activity",
+      activityCode: code
+    }
+  });
+}
+
 function bindArrows() {
   $tbody.on('keydown', '.cell', function(e) {
     if ( e.which <= 40 && e.which >= 37 ) {
@@ -389,4 +398,9 @@ $(document).ready(() => {
 
   // Select first class
   $('li.kurasu:first-child').click();
+
+  // Edit activity details
+  $thead.on('dblclick', 'th:not(:first)', function() {
+    editActivity($(this).data('code'));
+  })
 });

@@ -26,6 +26,9 @@ if ( isset($_POST['request']) ) {
     case 'delete_output':
       deleteOutput($conn, $_POST['output']);
       break;
+    case 'delete_activity':
+      deleteActivity($conn, $_POST['activityCode']);
+      break;
     default:
       die("Unknown request");
   }
@@ -309,5 +312,18 @@ function deleteOutput($conn, $output) {
   );
 
   notifyStudentScore("delete", $notifDetails);
+}
+
+// Delete an existing activity
+function deleteActivity($conn, $activityCode) {
+  $query = "
+    DELETE FROM `activities`
+    WHERE `activity_code` = '$activityCode'
+  ";
+
+  $result = mysqli_query($conn, $query);
+  if ( !$result ) die(mysqli_error($conn));
+  
+  echo("Activity successfully deleted");
 }
  ?>
