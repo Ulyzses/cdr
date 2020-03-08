@@ -30,12 +30,18 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown mr-0 px-2" title="Profile">
+        <li class="nav-item dropdown mr-0 px-2" title="Announcements">
           <a href="#" class="nav-link dropdown-toggle py-0" data-toggle="dropdown">
             <i class="fas fa-bullhorn icon"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right position-absolute">
-            <button class="dropdown-item new-announcement" data-toggle="modal" data-target="#newAnnouncement">Create Announcement</button>
+
+            <?php if ( basename(getcwd()) == "teacher" ) : ?>
+              <button class="dropdown-item new-announcement" data-toggle="modal" data-target="#newAnnouncement">Create Announcement</button>
+            <?php else : ?>
+              <a href="/cdr/public_html/teacher/?announce" class="dropdown-item">Create Announcement</a>
+            <?php endif; ?>
+
             <a href="/cdr/public_html/announcements" class="dropdown-item">View All Announcements</a>
           </div>
         </li>

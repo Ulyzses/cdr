@@ -153,6 +153,17 @@ if ( $result ) {
       </div>
     </div>
   </div>
+
+  
+  <?php if ( isset($_REQUEST['announce']) ) : ?>
+    <script>
+      $(document).ready(() => {
+        $("#newAnnouncement").modal("show");
+        history.replaceState(null, '', '/cdr/public_html/teacher/');
+      });
+    </script>
+  <?php endif; ?>
+
 </body>
 
 </html>
