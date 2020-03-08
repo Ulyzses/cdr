@@ -34,6 +34,13 @@ img {
 .side-details {
   text-transform: unset;
   color: grey;
+  font-weight: 400;
+}
+
+#editButton {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .main {
@@ -48,6 +55,10 @@ img {
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--light-grey);
+}
+
+.body-text {
+  margin-bottom: 0;
 }
 
 .body-div-header {
