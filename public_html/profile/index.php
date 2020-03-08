@@ -126,7 +126,7 @@ if ( $_SESSION['type'] == 1 ) {
           ?>
         </h2>
 
-        <button class="btn btn-outline-secondary w-100" id="editButton">Edit Account Details</button>
+        <a class="btn btn-outline-secondary w-100" id="editButton" href="edit">Edit Account Details</a>
       </div>
 
       <!-- Right Content -->
