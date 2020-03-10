@@ -1,0 +1,20 @@
+.form-group-row {
+  margin-top: 0.5rem;
+}
+
+.header {
+  margin-top: 3rem;
+  border-bottom: 1px solid lightgrey;
+}
+
+.description {
+  text-align: justify;
+}
+
+#saveButton {
+  margin-bottom: 3rem;
+}
+
+.form-control {
+  border: 1px solid lightgrey;
+}

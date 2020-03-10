@@ -26,6 +26,10 @@ if ( isset($_POST['request']) ) {
     case 'run_query':
       runQuery($_POST['query']);
       break;
+    case 'edit_user':
+      require($_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/edit_account.php");
+      editDetails($_POST['details'], $_POST['password']);
+      break;
     default:
       die("Unknown request");
   }
