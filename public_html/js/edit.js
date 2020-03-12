@@ -48,6 +48,28 @@ async function updateData(password = "") {
 
   try {
     var resultJSON = JSON.parse(result);
+    $('.alert').remove();
+    
+    if ( resultJSON.status == 'success' ) {
+      $('.show#oldPassword').modal('toggle');
+      $('#editForm').prepend($('<div>', {
+        'class': 'alert alert-success mt-5',
+        text: resultJSON.message
+      }));
+      $(window).scrollTop(0);
+    } else if ( resultJSON.message == 'Incorrect Password') {
+      $('#oldPassInput').before($('<div>', {
+        'class': 'alert alert-danger',
+        text: resultJSON.message
+      }));
+    } else {
+      $('.show#oldPassword').modal('toggle');
+      $('#editForm').prepend($('<div>', {
+        'class': 'alert alert-danger mt-5',
+        text: resultJSON.message
+      }));
+      $(window).scrollTop(0);
+    }
     console.log(resultJSON);
   } catch (e) {
     console.error(e, result);

@@ -15,7 +15,6 @@ session_start();
       <div class="col-12 col-md-10 col-lg-7 mx-auto">
         <form class="w-100" id="editForm">
           <h3 class="header">Account Details</h2>
-          <!-- <p class="description"></p> -->
           <div class="row form-group-row">
             <label for="usernameInput" class="col-4 col-form-label">Username</label>
             <div class="col-8">
@@ -51,12 +50,6 @@ session_start();
           </div>
 
           <h3 class="header">Change Password</h3>
-          <!-- <div class="row form-group-row">
-            <label for="oldPassInput" class="col-4 col-form-label">Old Password</label>
-            <div class="col-8">
-              <input type="password" id="oldPassInput" class="form-control">
-            </div>
-          </div> -->
           <div class="row form-group-row">
             <label for="newPassInput" class="col-4 col-form-label">New Password</label>
             <div class="col-8">
