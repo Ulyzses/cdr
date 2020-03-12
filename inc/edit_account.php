@@ -57,11 +57,11 @@ function editDetails($details, $password) {
 
       mysqli_free_result($result);
       $changeUsername = true;
+    }
 
-      // Check if email change attempt
-      if ( $details[1] != $_SESSION['user_data']['email'] ) {
-        $changeEmail = true;
-      }
+    // Check if email change attempt
+    if ( $details[1] != $_SESSION['user_data']['email'] ) {
+      $changeEmail = true;
     }
   }
 
@@ -93,7 +93,6 @@ function editDetails($details, $password) {
   // mysqli_free_result($result);
 
   /* UPDATE EMAIL */
-  /* @TODO: Email confirmation */
   if ( $changeEmail ) {
     $email = mysqli_real_escape_string($conn, $details[1]);
 
@@ -107,8 +106,6 @@ function editDetails($details, $password) {
 
     if ( $result ) {
       $_SESSION['user_data']['email'] = $email;
-
-      mysqli_free_result($result);
     } else {
       response(2, mysqli_error($conn));
     }
@@ -146,11 +143,19 @@ function editDetails($details, $password) {
     $_SESSION['username'] = $username;
   }
 
-  response(0, 'Successfully updated details');
+  if ( $changePassword ) {
+    require_once("change_password.php");
+    changePassword($userId, $details[5]);
+  }
+
+  $message = "Successfully updated details.";
+  if ( $changeEmail ) $message .= " Please check your email to confirm.";
+
+  response(0, $message);
 }
 
 function response(int $status, $message) {
-  $statusList = ['success', 'fail', 'db_fail'];
+  $statusList = ['success', 'fail', 'db_fail', 'debug'];
 
   die (
     json_encode(
