@@ -2,6 +2,10 @@
 
 session_start();
 
+if ( !(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])) {
+  header("Location: /cdr/public_html/");
+}
+
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/cdr/inc/begin.php" ?>
   <link rel="stylesheet" href="/cdr/public_html/css/edit.css">
@@ -14,6 +18,9 @@ session_start();
     <div class="row">
       <div class="col-12 col-md-10 col-lg-7 mx-auto">
         <form class="w-100" id="editForm">
+          <?php if ( isset($_REQUEST['e']) ) : ?>
+            <div class="alert alert-success mt-5">Email successfully confirmed</div>
+          <?php endif; ?>
           <h3 class="header">Account Details</h2>
           <div class="row form-group-row">
             <label for="usernameInput" class="col-4 col-form-label">Username</label>

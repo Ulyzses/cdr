@@ -96,18 +96,8 @@ function editDetails($details, $password) {
   if ( $changeEmail ) {
     $email = mysqli_real_escape_string($conn, $details[1]);
 
-    $query = "
-      UPDATE `users`
-      SET `user_email` = '$email'
-      WHERE `user_code` = '{$_SESSION['user_code']}'
-    ";
-
-    $result = mysqli_query($conn, $query);
-
-    if ( $result ) {
-      $_SESSION['user_data']['email'] = $email;
-    } else {
-      response(2, mysqli_error($conn));
+    if ( !confirmEmail($email) ) {
+      response(1, "Email not sent.");
     }
   }
 
@@ -152,6 +142,71 @@ function editDetails($details, $password) {
   if ( $changeEmail ) $message .= " Please check your email to confirm.";
 
   response(0, $message);
+}
+
+function confirmEmail($email) {
+  $token = createToken($email, $_SESSION['user_code']);
+  $toEmail = $email;
+  $firstName = $_SESSION['user_data']['first_name'];
+  $lastName = $_SESSION['user_data']['last_name'];
+  
+  $subject = "Confirm your email";
+
+  // Email Headers
+  $headers = "MIME-Version: 1.0\r\n";
+  $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+  $headers .= "From: CDR <master@upiscdr.com>\r\n";
+
+  // Body
+  $body = "
+    <p>This email was set as a recovery email for $firstName $lastName. Please confirm by clicking on the link below.</p>
+
+    <p>If this was not you, you may safely ignore this email.</p>
+
+    <p><a href=\"localhost/cdr/public_html/profile/edit/email/?t=$token\">Confirm your email.</a> This link will expire in <strong>1 day</strong>.</p>
+  ";
+
+  return mail($toEmail, $subject, $body, $headers);
+}
+
+function createToken($email, $user) {
+  global $conn;
+
+  $token = generateToken();
+  $expiration = time() + 24 * 60 * 60;
+
+  // Insert token to database
+  $query = "
+    INSERT INTO
+      `confirm_email` (
+        `user_code`,
+        `email`,
+        `token`,
+        `expiration`
+      )
+    VALUES (
+      '$user',
+      '$email',
+      '$token',
+      '$expiration'
+    )
+  ";
+  
+  $result = mysqli_query($conn, $query);
+  if ( !$result ) die(mysqli_error($conn));
+
+  return $token;
+}
+
+function generateToken($size = 64) {
+  $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+  $string = '';
+  
+  for ($i = 0; $i < $size; $i++) {
+    $string .= $chars[rand(0, 63)];
+  }
+  
+  return $string;
 }
 
 function response(int $status, $message) {
